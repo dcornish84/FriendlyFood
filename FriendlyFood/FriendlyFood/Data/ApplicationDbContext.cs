@@ -66,6 +66,7 @@ namespace FriendlyFood.Data
                 Id = 1,
                 RestaurantName = "Wild Cow",
                 Address = "1100 Fatherland St SUITE 104",
+                City = "Nashville",
                 ZipCode = 37206,
                 CuisineId = 1,
                 ApplicationUserId = user.Id
@@ -77,6 +78,7 @@ namespace FriendlyFood.Data
                 Id = 2,
                 RestaurantName = "Graze",
                 Address = "1888 Eastland Ave",
+                City = "Nashville",
                 ZipCode = 37206,
                 CuisineId = 2,
                 ApplicationUserId = user.Id
@@ -88,6 +90,7 @@ namespace FriendlyFood.Data
                 Id = 3,
                 RestaurantName = "Woodlands",
                 Address = "3415 West End Ave",
+                City = "Nashville",
                 ZipCode = 37203,
                 CuisineId = 3,
                 ApplicationUserId = user.Id
@@ -99,6 +102,7 @@ namespace FriendlyFood.Data
                 Id = 4,
                 RestaurantName = "City House",
                 Address = "1222 4th Ave N",
+                City = "Nashville",
                 ZipCode = 37208,
                 CuisineId = 4,
                 ApplicationUserId = user.Id
@@ -110,6 +114,7 @@ namespace FriendlyFood.Data
                 Id = 5,
                 RestaurantName = "Farm Burger",
                 Address = "4013 Charlotte Ave",
+                City = "Nashville",
                 ZipCode = 37209,
                 CuisineId = 5,
                 ApplicationUserId = user.Id
@@ -121,6 +126,7 @@ namespace FriendlyFood.Data
                 Id = 6,
                 RestaurantName = "Love Peace & Pho",
                 Address = "2112 8th Ave S",
+                City = "Nashville",
                 ZipCode = 37204,
                 CuisineId = 6,
                 ApplicationUserId = user.Id
@@ -132,6 +138,7 @@ namespace FriendlyFood.Data
                 Id = 7,
                 RestaurantName = "San Antonio Taco Co",
                 Address = "416 21st Ave S",
+                City = "Nashville",
                 ZipCode = 37203,
                 CuisineId = 7,
                 ApplicationUserId = user.Id
@@ -143,11 +150,191 @@ namespace FriendlyFood.Data
                 Id = 8,
                 RestaurantName = "Two Boots Nashville",
                 Address = "1925 Broadway",
+                City = "Nashville",
                 ZipCode = 37203,
                 CuisineId = 8,
                 ApplicationUserId = user.Id
             };
             modelBuilder.Entity<Restaurant>().HasData(restaurant8);
+
+            Restaurant restaurant9 = new Restaurant
+            {
+                Id = 9,
+                RestaurantName = "Siam Cafe",
+                Address = "316 Mccall St",
+                City = "Nashville",
+                ZipCode = 37211,
+                CuisineId = 9,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(restaurant9);
+
+            Restaurant restaurant10 = new Restaurant
+            {
+                Id = 10,
+                RestaurantName = "Crema",
+                Address = "15 Hermitage Ave",
+                City = "Nashville",
+                ZipCode = 37204,
+                CuisineId = 10,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(restaurant10);
+
+            Restaurant restaurant11 = new Restaurant
+            {
+                Id = 11,
+                RestaurantName = "Korea House",
+                Address = "6410 Charlotte Pike #108",
+                City = "Nashville",
+                ZipCode = 37209,
+                CuisineId = 11,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(restaurant11);
+
+            Restaurant restaurant12 = new Restaurant
+            {
+                Id = 12,
+                RestaurantName = "Henrietta Red",
+                Address = "1200 4th Ave N",
+                City = "Nashville",
+                ZipCode = 37208,
+                CuisineId = 12,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(restaurant12);
+
+            Restaurant restaurant13 = new Restaurant
+            {
+                Id = 13,
+                RestaurantName = "Marché Artisan Foods",
+                Address = "1000 Main St",
+                City = "Nashville",
+                ZipCode = 37206,
+                CuisineId = 13,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(restaurant13);
+
+            //create some cuisines 
+
+            Cuisine cuisine1 = new Cuisine
+            {
+                Id = 1,
+                CuisineName = "Vegetarian",
+                RestaurantId = restaurant1.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(cuisine1);
+
+            Cuisine cuisine2 = new Cuisine
+            {
+                Id = 2,
+                CuisineName = "Vegan",
+                RestaurantId = restaurant2.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(cuisine2);
+
+            Cuisine cuisine3 = new Cuisine
+            {
+                Id = 3,
+                CuisineName = "Indian",
+                RestaurantId = restaurant3.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(cuisine3);
+
+            Cuisine cuisine4 = new Cuisine
+            {
+                Id = 4,
+                CuisineName = "Italian",
+                RestaurantId = restaurant4.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(cuisine4);
+
+            Cuisine cuisine5 = new Cuisine
+            {
+                Id = 5,
+                CuisineName = "Burger",
+                RestaurantId = restaurant5.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(cuisine5);
+
+            Cuisine cuisine6 = new Cuisine
+            {
+                Id = 6,
+                CuisineName = "Vietnamese",
+                RestaurantId = restaurant6.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(cuisine6);
+
+            Cuisine cuisine7 = new Cuisine
+            {
+                Id = 7,
+                CuisineName = "Mexican",
+                RestaurantId = restaurant7.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(cuisine7);
+
+            Cuisine cuisine8 = new Cuisine
+            {
+                Id = 8,
+                CuisineName = "Pizza",
+                RestaurantId = restaurant8.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(cuisine8);
+
+            Cuisine cuisine9 = new Cuisine
+            {
+                Id = 9,
+                CuisineName = "Thai",
+                RestaurantId = restaurant9.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(cuisine9);
+
+            Cuisine cuisine10 = new Cuisine
+            {
+                Id = 10,
+                CuisineName = "Coffee",
+                RestaurantId = restaurant10.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(cuisine10);
+
+            Cuisine cuisine11 = new Cuisine
+            {
+                Id = 11,
+                CuisineName = "Korean",
+                RestaurantId = restaurant11.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(cuisine11);
+
+            Cuisine cuisine12 = new Cuisine
+            {
+                Id = 12,
+                CuisineName = "American",
+                RestaurantId = restaurant12.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(cuisine12);
+
+            Cuisine cuisine13 = new Cuisine
+            {
+                Id = 13,
+                CuisineName = "Breakfast",
+                RestaurantId = restaurant13.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(cuisine13);
         }
 
     }
