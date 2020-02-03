@@ -335,6 +335,51 @@ namespace FriendlyFood.Data
                 ApplicationUserId = user.Id
             };
             modelBuilder.Entity<Restaurant>().HasData(cuisine13);
+
+            //create some meals
+
+            Meal meal1 = new Meal
+            {
+                Id = 1,
+                MealName = "Wild Reuban",
+                Description = "Your choice of marinated, grilled organic tofu or tempeh topped w/ sauerkraut, " +
+                                "shredded carrots, 1000 Island, spicy mustard & your choice of vegan mozzarella or dairy swiss. Served on marble rye.",
+                RestaurantId = restaurant1.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(meal1);
+
+            Meal meal2 = new Meal
+            {
+                Id = 2,
+                MealName = "Spaghetti and Wheatballs",
+                Description = "Spaghetti topped with BE-Hive seitan wheatballs, house made marinara, cashew paremsan" +
+                                "chopped basil, parsley; served with toasted garlic bread.",
+                RestaurantId = restaurant2.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(meal2);
+
+            Meal meal3 = new Meal
+            {
+                Id = 3,
+                MealName = "Gobi Manchurian",
+                Description = "Dry cauliflower fritters with corn flour cooked in spicy manchurian sauce.",
+                RestaurantId = restaurant3.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(meal3);
+
+            Meal meal4 = new Meal
+            {
+                Id = 4,
+                MealName = "Pizza",
+                Description = "Belly Ham, Mozzarella, Parm, Oregano, Chilies.",
+                RestaurantId = restaurant4.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(meal4);
+
         }
 
     }
