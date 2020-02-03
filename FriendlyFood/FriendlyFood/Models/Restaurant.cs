@@ -20,6 +20,8 @@ namespace FriendlyFood.Models
         [Display(Name = "Zipcode")]
         public int ZipCode { get; set; }
 
+        public string City { get; set; }
+
         public int CuisineId { get; set; }
 
         public string ApplicationUserId { get; set; }
