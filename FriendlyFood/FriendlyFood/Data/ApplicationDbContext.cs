@@ -226,7 +226,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant1.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(cuisine1);
+            modelBuilder.Entity<Cuisine>().HasData(cuisine1);
 
             Cuisine cuisine2 = new Cuisine
             {
@@ -235,7 +235,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant2.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(cuisine2);
+            modelBuilder.Entity<Cuisine>().HasData(cuisine2);
 
             Cuisine cuisine3 = new Cuisine
             {
@@ -244,7 +244,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant3.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(cuisine3);
+            modelBuilder.Entity<Cuisine>().HasData(cuisine3);
 
             Cuisine cuisine4 = new Cuisine
             {
@@ -253,7 +253,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant4.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(cuisine4);
+            modelBuilder.Entity<Cuisine>().HasData(cuisine4);
 
             Cuisine cuisine5 = new Cuisine
             {
@@ -262,7 +262,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant5.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(cuisine5);
+            modelBuilder.Entity<Cuisine>().HasData(cuisine5);
 
             Cuisine cuisine6 = new Cuisine
             {
@@ -271,7 +271,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant6.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(cuisine6);
+            modelBuilder.Entity<Cuisine>().HasData(cuisine6);
 
             Cuisine cuisine7 = new Cuisine
             {
@@ -280,7 +280,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant7.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(cuisine7);
+            modelBuilder.Entity<Cuisine>().HasData(cuisine7);
 
             Cuisine cuisine8 = new Cuisine
             {
@@ -289,7 +289,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant8.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(cuisine8);
+            modelBuilder.Entity<Cuisine>().HasData(cuisine8);
 
             Cuisine cuisine9 = new Cuisine
             {
@@ -298,7 +298,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant9.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(cuisine9);
+            modelBuilder.Entity<Cuisine>().HasData(cuisine9);
 
             Cuisine cuisine10 = new Cuisine
             {
@@ -307,7 +307,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant10.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(cuisine10);
+            modelBuilder.Entity<Cuisine>().HasData(cuisine10);
 
             Cuisine cuisine11 = new Cuisine
             {
@@ -316,7 +316,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant11.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(cuisine11);
+            modelBuilder.Entity<Cuisine>().HasData(cuisine11);
 
             Cuisine cuisine12 = new Cuisine
             {
@@ -325,7 +325,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant12.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(cuisine12);
+            modelBuilder.Entity<Cuisine>().HasData(cuisine12);
 
             Cuisine cuisine13 = new Cuisine
             {
@@ -334,7 +334,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant13.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(cuisine13);
+            modelBuilder.Entity<Cuisine>().HasData(cuisine13);
 
             //create some meals
 
@@ -347,7 +347,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant1.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(meal1);
+            modelBuilder.Entity<Meal>().HasData(meal1);
 
             Meal meal2 = new Meal
             {
@@ -358,7 +358,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant2.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(meal2);
+            modelBuilder.Entity<Meal>().HasData(meal2);
 
             Meal meal3 = new Meal
             {
@@ -368,7 +368,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant3.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(meal3);
+            modelBuilder.Entity<Meal>().HasData(meal3);
 
             Meal meal4 = new Meal
             {
@@ -378,7 +378,7 @@ namespace FriendlyFood.Data
                 RestaurantId = restaurant4.Id,
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(meal4);
+            modelBuilder.Entity<Meal>().HasData(meal4);
 
             //create some dietary tags
 
@@ -388,7 +388,7 @@ namespace FriendlyFood.Data
                 DietName = "Vegetarian",
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(dietType1);
+            modelBuilder.Entity<DietType>().HasData(dietType1);
 
             DietType dietType2 = new DietType
             {
@@ -396,7 +396,7 @@ namespace FriendlyFood.Data
                 DietName = "Vegan",
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(dietType2);
+            modelBuilder.Entity<DietType>().HasData(dietType2);
 
             DietType dietType3 = new DietType
             {
@@ -404,7 +404,7 @@ namespace FriendlyFood.Data
                 DietName = "Dairy Free",
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(dietType3);
+            modelBuilder.Entity<DietType>().HasData(dietType3);
 
             DietType dietType4 = new DietType
             {
@@ -412,11 +412,89 @@ namespace FriendlyFood.Data
                 DietName = "Gluten Free",
                 ApplicationUserId = user.Id
             };
-            modelBuilder.Entity<Restaurant>().HasData(dietType4);
+            modelBuilder.Entity<DietType>().HasData(dietType4);
 
+            //join table between restaurants and diet types
+
+            RestaurantDiet restaurantDiet1 = new RestaurantDiet
+            { 
+                Id = 1,
+                RestaurantId = restaurant1.Id,
+                DietTypeId = dietType1.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<RestaurantDiet>().HasData(restaurantDiet1);
+
+            RestaurantDiet restaurantDiet2 = new RestaurantDiet
+            {
+                Id = 2,
+                RestaurantId = restaurant2.Id,
+                DietTypeId = dietType2.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<RestaurantDiet>().HasData(restaurantDiet2);
+
+            //join table between meals and diet types
+
+            MealDiet mealDiet1 = new MealDiet
+            {
+                Id = 1,
+                MealId = meal1.Id,
+                DietTypeId = dietType1.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<MealDiet>().HasData(mealDiet1);
+
+            MealDiet mealDiet2 = new MealDiet
+            {
+                Id = 2,
+                MealId = meal2.Id,
+                DietTypeId = dietType2.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<MealDiet>().HasData(mealDiet2);
+
+            //favorite Restaurants
+
+            FavoriteRestaurant favoriteRestaurant1 = new FavoriteRestaurant
+            {
+                Id = 1,
+                RestaurantId = restaurant1.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<FavoriteRestaurant>().HasData(favoriteRestaurant1);
+
+            FavoriteRestaurant favoriteRestaurant2 = new FavoriteRestaurant
+            {
+                Id = 2,
+                RestaurantId = restaurant2.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<FavoriteRestaurant>().HasData(favoriteRestaurant2);
+
+            //favorite Meals
+            
+            FavoriteMeal favoriteMeal1 = new FavoriteMeal
+            {
+                Id = 1,
+                MealId = meal1.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<FavoriteMeal>().HasData(favoriteMeal1);
+
+            FavoriteMeal favoriteMeal2 = new FavoriteMeal
+            {
+                Id = 2,
+                MealId = meal2.Id,
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<FavoriteMeal>().HasData(favoriteMeal2);
 
         }
-
     }
+
+
+
 }
+
 
