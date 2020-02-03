@@ -13,11 +13,6 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="RestaurantName" class="control-label"></label>
                 <input asp-for="RestaurantName" class="form-control" />
                 <span asp-validation-for="RestaurantName" class="text-danger"></span>
@@ -39,8 +34,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="CuisineId" class="control-label"></label>
-                <input asp-for="CuisineId" class="form-control" />
-                <span asp-validation-for="CuisineId" class="text-danger"></span>
+                <select asp-for="CuisineId" class ="form-control" asp-items="ViewBag.CuisineId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="ApplicationUserId" class="control-label"></label>

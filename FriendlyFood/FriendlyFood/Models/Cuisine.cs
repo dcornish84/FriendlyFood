@@ -10,15 +10,9 @@ namespace FriendlyFood.Models
     {
         public int Id { get; set; }
 
-        public int UserId { get; set; }
-
-        public int RestaurantId { get; set; }
-
-        [Display(Name = "Cuisine")]
+    [Display(Name = "Cuisine")]
         public string CuisineName { get; set; }
 
-        public string ApplicationUserId { get; set; }
-
-        public ApplicationUser ApplicationUser { get; set; }
+     
     }
 }

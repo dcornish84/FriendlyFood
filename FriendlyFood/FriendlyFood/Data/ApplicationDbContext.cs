@@ -223,8 +223,7 @@ namespace FriendlyFood.Data
             {
                 Id = 1,
                 CuisineName = "Vegetarian",
-                RestaurantId = restaurant1.Id,
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<Cuisine>().HasData(cuisine1);
 
@@ -232,8 +231,7 @@ namespace FriendlyFood.Data
             {
                 Id = 2,
                 CuisineName = "Vegan",
-                RestaurantId = restaurant2.Id,
-                ApplicationUserId = user.Id
+               
             };
             modelBuilder.Entity<Cuisine>().HasData(cuisine2);
 
@@ -241,8 +239,7 @@ namespace FriendlyFood.Data
             {
                 Id = 3,
                 CuisineName = "Indian",
-                RestaurantId = restaurant3.Id,
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<Cuisine>().HasData(cuisine3);
 
@@ -250,8 +247,7 @@ namespace FriendlyFood.Data
             {
                 Id = 4,
                 CuisineName = "Italian",
-                RestaurantId = restaurant4.Id,
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<Cuisine>().HasData(cuisine4);
 
@@ -259,8 +255,7 @@ namespace FriendlyFood.Data
             {
                 Id = 5,
                 CuisineName = "Burger",
-                RestaurantId = restaurant5.Id,
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<Cuisine>().HasData(cuisine5);
 
@@ -268,8 +263,7 @@ namespace FriendlyFood.Data
             {
                 Id = 6,
                 CuisineName = "Vietnamese",
-                RestaurantId = restaurant6.Id,
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<Cuisine>().HasData(cuisine6);
 
@@ -277,8 +271,7 @@ namespace FriendlyFood.Data
             {
                 Id = 7,
                 CuisineName = "Mexican",
-                RestaurantId = restaurant7.Id,
-                ApplicationUserId = user.Id
+               
             };
             modelBuilder.Entity<Cuisine>().HasData(cuisine7);
 
@@ -286,8 +279,7 @@ namespace FriendlyFood.Data
             {
                 Id = 8,
                 CuisineName = "Pizza",
-                RestaurantId = restaurant8.Id,
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<Cuisine>().HasData(cuisine8);
 
@@ -295,8 +287,7 @@ namespace FriendlyFood.Data
             {
                 Id = 9,
                 CuisineName = "Thai",
-                RestaurantId = restaurant9.Id,
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<Cuisine>().HasData(cuisine9);
 
@@ -304,8 +295,7 @@ namespace FriendlyFood.Data
             {
                 Id = 10,
                 CuisineName = "Coffee",
-                RestaurantId = restaurant10.Id,
-                ApplicationUserId = user.Id
+               
             };
             modelBuilder.Entity<Cuisine>().HasData(cuisine10);
 
@@ -313,8 +303,7 @@ namespace FriendlyFood.Data
             {
                 Id = 11,
                 CuisineName = "Korean",
-                RestaurantId = restaurant11.Id,
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<Cuisine>().HasData(cuisine11);
 
@@ -322,8 +311,7 @@ namespace FriendlyFood.Data
             {
                 Id = 12,
                 CuisineName = "American",
-                RestaurantId = restaurant12.Id,
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<Cuisine>().HasData(cuisine12);
 
@@ -331,8 +319,7 @@ namespace FriendlyFood.Data
             {
                 Id = 13,
                 CuisineName = "Breakfast",
-                RestaurantId = restaurant13.Id,
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<Cuisine>().HasData(cuisine13);
 
@@ -386,7 +373,7 @@ namespace FriendlyFood.Data
             {
                 Id = 1,
                 DietName = "Vegetarian",
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<DietType>().HasData(dietType1);
 
@@ -394,7 +381,7 @@ namespace FriendlyFood.Data
             {
                 Id = 2,
                 DietName = "Vegan",
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<DietType>().HasData(dietType2);
 
@@ -402,7 +389,7 @@ namespace FriendlyFood.Data
             {
                 Id = 3,
                 DietName = "Dairy Free",
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<DietType>().HasData(dietType3);
 
@@ -410,7 +397,7 @@ namespace FriendlyFood.Data
             {
                 Id = 4,
                 DietName = "Gluten Free",
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<DietType>().HasData(dietType4);
 
@@ -421,7 +408,7 @@ namespace FriendlyFood.Data
                 Id = 1,
                 RestaurantId = restaurant1.Id,
                 DietTypeId = dietType1.Id,
-                ApplicationUserId = user.Id
+              
             };
             modelBuilder.Entity<RestaurantDiet>().HasData(restaurantDiet1);
 
@@ -430,7 +417,7 @@ namespace FriendlyFood.Data
                 Id = 2,
                 RestaurantId = restaurant2.Id,
                 DietTypeId = dietType2.Id,
-                ApplicationUserId = user.Id
+              
             };
             modelBuilder.Entity<RestaurantDiet>().HasData(restaurantDiet2);
 
@@ -441,7 +428,7 @@ namespace FriendlyFood.Data
                 Id = 1,
                 MealId = meal1.Id,
                 DietTypeId = dietType1.Id,
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<MealDiet>().HasData(mealDiet1);
 
@@ -450,7 +437,7 @@ namespace FriendlyFood.Data
                 Id = 2,
                 MealId = meal2.Id,
                 DietTypeId = dietType2.Id,
-                ApplicationUserId = user.Id
+                
             };
             modelBuilder.Entity<MealDiet>().HasData(mealDiet2);
 
