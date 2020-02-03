@@ -90,8 +90,11 @@ namespace FriendlyFood.Controllers
             {
                 return NotFound();
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", restaurant.ApplicationUserId);
-            ViewData["CuisineId"] = new SelectList(_context.Cuisine, "Id", "Id", restaurant.CuisineId);
+
+            var cuisine = _context.Cuisine;
+            ViewData["CuisineId"] = new SelectList(cuisine, "Id", "CuisineName");
+
+
             return View(restaurant);
         }
 
