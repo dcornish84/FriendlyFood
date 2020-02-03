@@ -380,6 +380,41 @@ namespace FriendlyFood.Data
             };
             modelBuilder.Entity<Restaurant>().HasData(meal4);
 
+            //create some dietary tags
+
+            DietType dietType1 = new DietType
+            {
+                Id = 1,
+                DietName = "Vegetarian",
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(dietType1);
+
+            DietType dietType2 = new DietType
+            {
+                Id = 2,
+                DietName = "Vegan",
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(dietType2);
+
+            DietType dietType3 = new DietType
+            {
+                Id = 3,
+                DietName = "Dairy Free",
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(dietType3);
+
+            DietType dietType4 = new DietType
+            {
+                Id = 4,
+                DietName = "Gluten Free",
+                ApplicationUserId = user.Id
+            };
+            modelBuilder.Entity<Restaurant>().HasData(dietType4);
+
+
         }
 
     }
