@@ -8,9 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using FriendlyFood.Data;
 using FriendlyFood.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FriendlyFood.Controllers
 {
+
+
     public class RestaurantsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -50,6 +53,8 @@ namespace FriendlyFood.Controllers
         }
 
         // GET: Restaurants/Create
+
+            [Authorize]
         public async Task<IActionResult> Create()
         {
             var user = await GetCurrentUserAsync();
@@ -78,6 +83,8 @@ namespace FriendlyFood.Controllers
         }
 
         // GET: Restaurants/Edit/5
+
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -136,6 +143,8 @@ namespace FriendlyFood.Controllers
         }
 
         // GET: Restaurants/Delete/5
+
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
