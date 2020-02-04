@@ -20,6 +20,10 @@ namespace FriendlyFood.Models
 
         public int RestaurantId { get; set; }
 
+        public List<Restaurant> Restaurants { get; set; }
+
+        public Restaurant Restaurant { get; set; }
+
         public string ApplicationUserId { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; }

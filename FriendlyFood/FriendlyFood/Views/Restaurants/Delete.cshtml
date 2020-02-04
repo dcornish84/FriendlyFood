@@ -39,14 +39,9 @@
             @Html.DisplayNameFor(model => model.Cuisine)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cuisine.Id)
+            @Html.DisplayFor(model => model.Cuisine.CuisineName)
         </dd class>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ApplicationUser)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ApplicationUser.Id)
-        </dd class>
+       
     </dl>
     
     <form asp-action="Delete">

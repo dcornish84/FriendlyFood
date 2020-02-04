@@ -13,6 +13,7 @@ namespace FriendlyFood.Models
        
 
         [Display(Name = "Restaurant")]
+
         public string RestaurantName { get; set; }
 
         public string Address { get; set; }
