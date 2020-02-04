@@ -13,8 +13,6 @@ namespace FriendlyFood.Models
 
         public int RestaurantId { get; set; }
 
-        public string ApplicationUserId { get; set; }
-
-        public ApplicationUser ApplicationUser { get; set; }
+       
     }
 }

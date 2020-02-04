@@ -7,22 +7,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FriendlyFood.Data;
 using FriendlyFood.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FriendlyFood.Controllers
 {
+
+
     public class RestaurantsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public RestaurantsController(ApplicationDbContext context)
+        public RestaurantsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Restaurants
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Restaurant.Include(r => r.ApplicationUser);
+            var applicationDbContext = _context.Restaurant.Include(r => r.ApplicationUser).Include(r => r.Cuisine);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -36,6 +42,7 @@ namespace FriendlyFood.Controllers
 
             var restaurant = await _context.Restaurant
                 .Include(r => r.ApplicationUser)
+                .Include(r => r.Cuisine)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (restaurant == null)
             {
@@ -46,30 +53,38 @@ namespace FriendlyFood.Controllers
         }
 
         // GET: Restaurants/Create
-        public IActionResult Create()
+
+            [Authorize]
+        public async Task<IActionResult> Create()
         {
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
+            var user = await GetCurrentUserAsync();
+            var cuisine = _context.Cuisine;
+            ViewData["CuisineId"] = new SelectList(cuisine, "Id", "CuisineName");
             return View();
         }
-
         // POST: Restaurants/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,RestaurantName,Address,ZipCode,City,CuisineId,ApplicationUserId")] Restaurant restaurant)
+        public async Task<IActionResult> Create([Bind("Id,RestaurantName,Address,ZipCode,City,CuisineId,")] Restaurant restaurant)
         {
+            var user = await GetCurrentUserAsync();
+            restaurant.ApplicationUserId = user.Id;
             if (ModelState.IsValid)
             {
                 _context.Add(restaurant);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", restaurant.ApplicationUserId);
+           
+
             return View(restaurant);
         }
 
         // GET: Restaurants/Edit/5
+
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,7 +97,11 @@ namespace FriendlyFood.Controllers
             {
                 return NotFound();
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", restaurant.ApplicationUserId);
+
+            var cuisine = _context.Cuisine;
+            ViewData["CuisineId"] = new SelectList(cuisine, "Id", "CuisineName");
+
+
             return View(restaurant);
         }
 
@@ -91,7 +110,7 @@ namespace FriendlyFood.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,RestaurantName,Address,ZipCode,City,CuisineId,ApplicationUserId")] Restaurant restaurant)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RestaurantName,Address,ZipCode,City,CuisineId,ApplicationUserId")] Restaurant restaurant)
         {
             if (id != restaurant.Id)
             {
@@ -119,10 +138,13 @@ namespace FriendlyFood.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", restaurant.ApplicationUserId);
+            ViewData["CuisineId"] = new SelectList(_context.Cuisine, "Id", "Id", restaurant.CuisineId);
             return View(restaurant);
         }
 
         // GET: Restaurants/Delete/5
+
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,6 +154,7 @@ namespace FriendlyFood.Controllers
 
             var restaurant = await _context.Restaurant
                 .Include(r => r.ApplicationUser)
+                .Include(r => r.Cuisine)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (restaurant == null)
             {
@@ -156,5 +179,7 @@ namespace FriendlyFood.Controllers
         {
             return _context.Restaurant.Any(e => e.Id == id);
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }

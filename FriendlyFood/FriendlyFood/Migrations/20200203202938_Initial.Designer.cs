@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FriendlyFood.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200203165701_Initial")]
+    [Migration("20200203202938_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,21 +28,15 @@ namespace FriendlyFood.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("CuisineName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RestaurantId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
+                    b.Property<int?>("RestaurantId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("RestaurantId");
 
                     b.ToTable("Cuisine");
 
@@ -50,106 +44,67 @@ namespace FriendlyFood.Migrations
                         new
                         {
                             Id = 1,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            CuisineName = "Vegetarian",
-                            RestaurantId = 1,
-                            UserId = 0
+                            CuisineName = "Vegetarian"
                         },
                         new
                         {
                             Id = 2,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            CuisineName = "Vegan",
-                            RestaurantId = 2,
-                            UserId = 0
+                            CuisineName = "Vegan"
                         },
                         new
                         {
                             Id = 3,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            CuisineName = "Indian",
-                            RestaurantId = 3,
-                            UserId = 0
+                            CuisineName = "Indian"
                         },
                         new
                         {
                             Id = 4,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            CuisineName = "Italian",
-                            RestaurantId = 4,
-                            UserId = 0
+                            CuisineName = "Italian"
                         },
                         new
                         {
                             Id = 5,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            CuisineName = "Burger",
-                            RestaurantId = 5,
-                            UserId = 0
+                            CuisineName = "Burger"
                         },
                         new
                         {
                             Id = 6,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            CuisineName = "Vietnamese",
-                            RestaurantId = 6,
-                            UserId = 0
+                            CuisineName = "Vietnamese"
                         },
                         new
                         {
                             Id = 7,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            CuisineName = "Mexican",
-                            RestaurantId = 7,
-                            UserId = 0
+                            CuisineName = "Mexican"
                         },
                         new
                         {
                             Id = 8,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            CuisineName = "Pizza",
-                            RestaurantId = 8,
-                            UserId = 0
+                            CuisineName = "Pizza"
                         },
                         new
                         {
                             Id = 9,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            CuisineName = "Thai",
-                            RestaurantId = 9,
-                            UserId = 0
+                            CuisineName = "Thai"
                         },
                         new
                         {
                             Id = 10,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            CuisineName = "Coffee",
-                            RestaurantId = 10,
-                            UserId = 0
+                            CuisineName = "Coffee"
                         },
                         new
                         {
                             Id = 11,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            CuisineName = "Korean",
-                            RestaurantId = 11,
-                            UserId = 0
+                            CuisineName = "Korean"
                         },
                         new
                         {
                             Id = 12,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            CuisineName = "American",
-                            RestaurantId = 12,
-                            UserId = 0
+                            CuisineName = "American"
                         },
                         new
                         {
                             Id = 13,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            CuisineName = "Breakfast",
-                            RestaurantId = 13,
-                            UserId = 0
+                            CuisineName = "Breakfast"
                         });
                 });
 
@@ -160,15 +115,10 @@ namespace FriendlyFood.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("DietName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("DietType");
 
@@ -176,25 +126,21 @@ namespace FriendlyFood.Migrations
                         new
                         {
                             Id = 1,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
                             DietName = "Vegetarian"
                         },
                         new
                         {
                             Id = 2,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
                             DietName = "Vegan"
                         },
                         new
                         {
                             Id = 3,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
                             DietName = "Dairy Free"
                         },
                         new
                         {
                             Id = 4,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
                             DietName = "Gluten Free"
                         });
                 });
@@ -212,9 +158,6 @@ namespace FriendlyFood.Migrations
                     b.Property<int>("MealId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
@@ -226,15 +169,13 @@ namespace FriendlyFood.Migrations
                         {
                             Id = 1,
                             ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            MealId = 1,
-                            UserId = 0
+                            MealId = 1
                         },
                         new
                         {
                             Id = 2,
                             ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            MealId = 2,
-                            UserId = 0
+                            MealId = 2
                         });
                 });
 
@@ -251,9 +192,6 @@ namespace FriendlyFood.Migrations
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
@@ -265,15 +203,13 @@ namespace FriendlyFood.Migrations
                         {
                             Id = 1,
                             ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            RestaurantId = 1,
-                            UserId = 0
+                            RestaurantId = 1
                         },
                         new
                         {
                             Id = 2,
                             ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            RestaurantId = 2,
-                            UserId = 0
+                            RestaurantId = 2
                         });
                 });
 
@@ -296,9 +232,6 @@ namespace FriendlyFood.Migrations
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
@@ -312,8 +245,7 @@ namespace FriendlyFood.Migrations
                             ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
                             Description = "Your choice of marinated, grilled organic tofu or tempeh topped w/ sauerkraut, shredded carrots, 1000 Island, spicy mustard & your choice of vegan mozzarella or dairy swiss. Served on marble rye.",
                             MealName = "Wild Reuban",
-                            RestaurantId = 1,
-                            UserId = 0
+                            RestaurantId = 1
                         },
                         new
                         {
@@ -321,8 +253,7 @@ namespace FriendlyFood.Migrations
                             ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
                             Description = "Spaghetti topped with BE-Hive seitan wheatballs, house made marinara, cashew paremsanchopped basil, parsley; served with toasted garlic bread.",
                             MealName = "Spaghetti and Wheatballs",
-                            RestaurantId = 2,
-                            UserId = 0
+                            RestaurantId = 2
                         },
                         new
                         {
@@ -330,8 +261,7 @@ namespace FriendlyFood.Migrations
                             ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
                             Description = "Dry cauliflower fritters with corn flour cooked in spicy manchurian sauce.",
                             MealName = "Gobi Manchurian",
-                            RestaurantId = 3,
-                            UserId = 0
+                            RestaurantId = 3
                         },
                         new
                         {
@@ -339,8 +269,7 @@ namespace FriendlyFood.Migrations
                             ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
                             Description = "Belly Ham, Mozzarella, Parm, Oregano, Chilies.",
                             MealName = "Pizza",
-                            RestaurantId = 4,
-                            UserId = 0
+                            RestaurantId = 4
                         });
                 });
 
@@ -351,9 +280,6 @@ namespace FriendlyFood.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("DietTypeId")
                         .HasColumnType("int");
 
@@ -362,22 +288,18 @@ namespace FriendlyFood.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.ToTable("MealDiet");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
                             DietTypeId = 1,
                             MealId = 1
                         },
                         new
                         {
                             Id = 2,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
                             DietTypeId = 2,
                             MealId = 2
                         });
@@ -425,15 +347,14 @@ namespace FriendlyFood.Migrations
                     b.Property<string>("RestaurantName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ZipCode")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("CuisineId");
 
                     b.ToTable("Restaurant");
 
@@ -446,7 +367,6 @@ namespace FriendlyFood.Migrations
                             City = "Nashville",
                             CuisineId = 1,
                             RestaurantName = "Wild Cow",
-                            UserId = 0,
                             ZipCode = 37206
                         },
                         new
@@ -457,7 +377,6 @@ namespace FriendlyFood.Migrations
                             City = "Nashville",
                             CuisineId = 2,
                             RestaurantName = "Graze",
-                            UserId = 0,
                             ZipCode = 37206
                         },
                         new
@@ -468,7 +387,6 @@ namespace FriendlyFood.Migrations
                             City = "Nashville",
                             CuisineId = 3,
                             RestaurantName = "Woodlands",
-                            UserId = 0,
                             ZipCode = 37203
                         },
                         new
@@ -479,7 +397,6 @@ namespace FriendlyFood.Migrations
                             City = "Nashville",
                             CuisineId = 4,
                             RestaurantName = "City House",
-                            UserId = 0,
                             ZipCode = 37208
                         },
                         new
@@ -490,7 +407,6 @@ namespace FriendlyFood.Migrations
                             City = "Nashville",
                             CuisineId = 5,
                             RestaurantName = "Farm Burger",
-                            UserId = 0,
                             ZipCode = 37209
                         },
                         new
@@ -501,7 +417,6 @@ namespace FriendlyFood.Migrations
                             City = "Nashville",
                             CuisineId = 6,
                             RestaurantName = "Love Peace & Pho",
-                            UserId = 0,
                             ZipCode = 37204
                         },
                         new
@@ -512,7 +427,6 @@ namespace FriendlyFood.Migrations
                             City = "Nashville",
                             CuisineId = 7,
                             RestaurantName = "San Antonio Taco Co",
-                            UserId = 0,
                             ZipCode = 37203
                         },
                         new
@@ -523,7 +437,6 @@ namespace FriendlyFood.Migrations
                             City = "Nashville",
                             CuisineId = 8,
                             RestaurantName = "Two Boots Nashville",
-                            UserId = 0,
                             ZipCode = 37203
                         },
                         new
@@ -534,7 +447,6 @@ namespace FriendlyFood.Migrations
                             City = "Nashville",
                             CuisineId = 9,
                             RestaurantName = "Siam Cafe",
-                            UserId = 0,
                             ZipCode = 37211
                         },
                         new
@@ -545,7 +457,6 @@ namespace FriendlyFood.Migrations
                             City = "Nashville",
                             CuisineId = 10,
                             RestaurantName = "Crema",
-                            UserId = 0,
                             ZipCode = 37204
                         },
                         new
@@ -556,7 +467,6 @@ namespace FriendlyFood.Migrations
                             City = "Nashville",
                             CuisineId = 11,
                             RestaurantName = "Korea House",
-                            UserId = 0,
                             ZipCode = 37209
                         },
                         new
@@ -567,7 +477,6 @@ namespace FriendlyFood.Migrations
                             City = "Nashville",
                             CuisineId = 12,
                             RestaurantName = "Henrietta Red",
-                            UserId = 0,
                             ZipCode = 37208
                         },
                         new
@@ -578,7 +487,6 @@ namespace FriendlyFood.Migrations
                             City = "Nashville",
                             CuisineId = 13,
                             RestaurantName = "Marché Artisan Foods",
-                            UserId = 0,
                             ZipCode = 37206
                         });
                 });
@@ -590,9 +498,6 @@ namespace FriendlyFood.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("DietTypeId")
                         .HasColumnType("int");
 
@@ -601,22 +506,18 @@ namespace FriendlyFood.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.ToTable("RestaurantDiet");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
                             DietTypeId = 1,
                             RestaurantId = 1
                         },
                         new
                         {
                             Id = 2,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
                             DietTypeId = 2,
                             RestaurantId = 2
                         });
@@ -855,13 +756,13 @@ namespace FriendlyFood.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2b252cbd-bdd7-4516-bb19-0f7aaf4f6418",
+                            ConcurrencyStamp = "d5142b3e-5a2a-4b63-97c6-f9431e891325",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAdOzZhz0A8tGnTIbwOv4V9a/R8dDxXJFUL+YtlkkTnLX/+LmPBGdlR/VcWQWz7Y8w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENEnB2MMkmcdCVN0b4rsVYXXMj1e2npsjNPxBeJ3vyXgfX31W8ucALvmPhao7O5Yew==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -875,16 +776,9 @@ namespace FriendlyFood.Migrations
 
             modelBuilder.Entity("FriendlyFood.Models.Cuisine", b =>
                 {
-                    b.HasOne("FriendlyFood.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
-                });
-
-            modelBuilder.Entity("FriendlyFood.Models.DietType", b =>
-                {
-                    b.HasOne("FriendlyFood.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                    b.HasOne("FriendlyFood.Models.Restaurant", null)
+                        .WithMany("Cuisines")
+                        .HasForeignKey("RestaurantId");
                 });
 
             modelBuilder.Entity("FriendlyFood.Models.FavoriteMeal", b =>
@@ -908,13 +802,6 @@ namespace FriendlyFood.Migrations
                         .HasForeignKey("ApplicationUserId");
                 });
 
-            modelBuilder.Entity("FriendlyFood.Models.MealDiet", b =>
-                {
-                    b.HasOne("FriendlyFood.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
-                });
-
             modelBuilder.Entity("FriendlyFood.Models.MealImage", b =>
                 {
                     b.HasOne("FriendlyFood.Models.ApplicationUser", "ApplicationUser")
@@ -927,13 +814,12 @@ namespace FriendlyFood.Migrations
                     b.HasOne("FriendlyFood.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
-                });
 
-            modelBuilder.Entity("FriendlyFood.Models.RestaurantDiet", b =>
-                {
-                    b.HasOne("FriendlyFood.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("FriendlyFood.Models.Cuisine", "Cuisine")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("CuisineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

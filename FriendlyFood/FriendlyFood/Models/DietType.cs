@@ -11,8 +11,6 @@ namespace FriendlyFood.Models
 
         public string DietName { get; set; }
 
-        public string ApplicationUserId { get; set; }
-
-        public ApplicationUser ApplicationUser { get; set; }
+        
     }
 }
