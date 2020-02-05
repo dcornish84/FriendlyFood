@@ -26,10 +26,23 @@ namespace FriendlyFood.Controllers
         }
 
         // GET: Restaurants
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Restaurant.Include(r => r.ApplicationUser).Include(r => r.Cuisine);
-            return View(await applicationDbContext.ToListAsync());
+        public async Task<IActionResult> Index(string searchString)
+        { 
+        
+            var user = await GetCurrentUserAsync();
+            if (searchString == null)
+            {
+                var model = _context.Restaurant
+                    .Include(r => r.Cuisine);
+                return View(await model.ToListAsync());
+            }
+            else
+            {
+                var model = _context.Restaurant
+                 .Include(r => r.Cuisine)
+                 .Where(r => r.RestaurantName.Contains(searchString) || r.Address.Contains(searchString) || r.City.Contains(searchString)/* || r.ZipCode == Convert.ToInt32(searchString)*/);
+                return View(await model.ToListAsync());
+            }
         }
 
         // GET: Restaurants/Details/5

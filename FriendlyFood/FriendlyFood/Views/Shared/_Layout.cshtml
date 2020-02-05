@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -31,10 +36,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Favorites" asp-action="Index">Favorites</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+
                     </ul>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <div>
+                            <form asp-controller="Restaurants" asp-action="Index">
+                                <div class="input-group">
+                                    <input type="text" name="searchString" class="form-control" placeholder="Search by Restaurant, Meal, or Diet" />
+                                    <span class="input-group-btn">
+                                        <input type="submit" value="Search" class="btn btn-primary" />
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    }
+
                 </div>
             </div>
         </nav>
