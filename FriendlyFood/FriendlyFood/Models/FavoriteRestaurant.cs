@@ -9,8 +9,7 @@ namespace FriendlyFood.Models
     {
         public int Id { get; set; }
 
-       
-
+       public Restaurant Restaurant { get; set; }
         public int RestaurantId { get; set; }
 
         public string ApplicationUserId { get; set; }
