@@ -1,0 +1,77 @@
+﻿@model FriendlyFood.Models.ViewModels.FavoritesViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Favorites</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FavoriteMeal)
+            </th>
+
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.FavoriteMeal)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Meal.MealName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Meal.Description)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Meal.Restaurant)
+            </td>*@
+
+
+
+        </tr>
+        }
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FavoriteRestaurant)
+            </th>
+
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.FavoriteRestaurant)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Restaurant.RestaurantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Restaurant.Cuisine)
+            </td>
+
+
+
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+
+
