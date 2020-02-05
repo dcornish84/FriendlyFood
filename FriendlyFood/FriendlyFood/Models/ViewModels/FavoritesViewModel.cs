@@ -9,11 +9,11 @@ namespace FriendlyFood.Models.ViewModels
     public class FavoritesViewModel
     {
 
-        
+        [Display(Name = "Favorite Restaurants")]
         public List<FavoriteRestaurant> FavoriteRestaurant { get; set; }
 
-      
 
+        [Display(Name = "Favorite Meals")]
         public List<FavoriteMeal> FavoriteMeal { get; set; }
 
        

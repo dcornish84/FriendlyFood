@@ -21,14 +21,20 @@
     <tbody>
         @foreach (var item in Model.FavoriteMeal)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Meal)
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Meal.MealName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Meal.Description)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Meal.Restaurant)
+            </td>*@
 
 
 
-            </tr>
+        </tr>
         }
     </tbody>
 </table>
@@ -48,14 +54,17 @@
     <tbody>
         @foreach (var item in Model.FavoriteRestaurant)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Restaurant)
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Restaurant.RestaurantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Restaurant.Cuisine)
+            </td>
 
 
 
-            </tr>
+        </tr>
         }
     </tbody>
 </table>
