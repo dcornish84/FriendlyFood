@@ -45,7 +45,7 @@ namespace FriendlyFood.Controllers
             var favoritesViewModel = new FavoritesViewModel();
             var user = await GetCurrentUserAsync();
             favoritesViewModel.FavoriteRestaurant = await _context.FavoritRestaurant
-                .Where(a => a.ApplicationUserId == user.Id).Include(a => a.Restaurant).ToListAsync();
+                .Where(a => a.ApplicationUserId == user.Id).Include(a => a.Restaurant).Include(a => a.Restaurant.Cuisine).ToListAsync();
             favoritesViewModel.FavoriteMeal = await _context.FavoriteMeal
                 .Where(a => a.ApplicationUserId == user.Id).Include(a => a.Meal).ToListAsync();
             return View(favoritesViewModel);

@@ -28,7 +28,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Meal.Description)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Meal.Restaurant.RestaurantName)
+            </td>
             
+
 
 
 
@@ -57,7 +61,7 @@
                 @Html.DisplayFor(modelItem => item.Restaurant.RestaurantName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Restaurant.Cuisine)
+                @Html.DisplayFor(modelItem => item.Restaurant.Cuisine.CuisineName)
             </td>
 
 
