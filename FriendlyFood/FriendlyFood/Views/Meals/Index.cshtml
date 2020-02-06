@@ -53,6 +53,10 @@
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <form asp-controller="Favorites" asp-action="AddMealToFavorites">
+                    <input type="hidden" name="id" value="@item.Id" />
+                    <input type="submit" class="btn alert-primary" id="btn-@item.Id" value="Add to Favorites" />
+                </form>
             </td>
         </tr>
 }
