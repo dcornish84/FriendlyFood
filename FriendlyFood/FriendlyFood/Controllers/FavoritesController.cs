@@ -26,21 +26,35 @@ namespace FriendlyFood.Controllers
             _userManager = userManager;
         }
 
-        // GET: Favorites
+        //GET: Favorites
+        //public async Task<IActionResult> Index()
+        //{
+        //    var user = await GetCurrentUserAsync();
+
+        //    var viewModel = new FavoritesViewModel
+        //    {
+        //        FavoriteMeal = await _context.FavoriteMeal.Include(m => m.Meal).ToListAsync(),
+        //        FavoriteRestaurant = await _context.FavoritRestaurant.Include(r => r.Restaurant).ToListAsync(),
+
+        //    };
+        //    return View(viewModel);
+        //}
+
         public async Task<IActionResult> Index()
         {
-
-
-            var viewModel = new FavoritesViewModel
-            {
-                FavoriteMeal = await _context.FavoriteMeal.Include(m => m.Meal).ToListAsync(),
-                FavoriteRestaurant = await _context.FavoritRestaurant.Include(r => r.Restaurant).ToListAsync(),
-
-            };
-            return View(viewModel);
-
-
+            var favoritesViewModel = new FavoritesViewModel();
+            var user = await GetCurrentUserAsync();
+            favoritesViewModel.FavoriteRestaurant = await _context.FavoritRestaurant
+                .Where(a => a.ApplicationUserId == user.Id).Include(a => a.Restaurant).ToListAsync();
+            favoritesViewModel.FavoriteMeal = await _context.FavoriteMeal
+                .Where(a => a.ApplicationUserId == user.Id).Include(a => a.Meal).ToListAsync();
+            return View(favoritesViewModel);
         }
+
+
+
+
+
 
         // GET: Favorites/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -91,6 +105,41 @@ namespace FriendlyFood.Controllers
 
             return View(restaurant);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddRestaurantToFavorites(int id)
+        {
+            var user = await GetCurrentUserAsync();
+            var favoriteRestaurant = new FavoriteRestaurant
+            {
+                ApplicationUserId = user.Id,
+                RestaurantId = id
+                
+            };
+            _context.Add(favoriteRestaurant);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index), "Favorites");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddMealToFavorites(int id)
+        {
+            var user = await GetCurrentUserAsync();
+            var favoriteMeal = new FavoriteMeal
+            {
+                ApplicationUserId = user.Id,
+                MealId = id
+
+            };
+            _context.Add(favoriteMeal);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index), "Favorites");
+        }
+
+
+
 
         // GET: Restaurants/Edit/5
 

@@ -13,6 +13,10 @@ namespace FriendlyFood.Models
 
         public int DietTypeId { get; set; }
 
-       
+        public DietType DietType { get; set; }
+
+        public Meal Meal { get; set; }
+
+
     }
 }

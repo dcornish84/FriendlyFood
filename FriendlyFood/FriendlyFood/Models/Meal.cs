@@ -20,7 +20,7 @@ namespace FriendlyFood.Models
 
         public int RestaurantId { get; set; }
 
-
+       
 
         public List<Restaurant> Restaurants { get; set; }
 
