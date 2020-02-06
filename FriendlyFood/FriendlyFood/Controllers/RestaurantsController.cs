@@ -30,6 +30,9 @@ namespace FriendlyFood.Controllers
         { 
         
             var user = await GetCurrentUserAsync();
+            var integerTerm = -1;
+            Int32.TryParse(searchString, out integerTerm);
+
             if (searchString == null)
             {
                 var model = _context.Restaurant
@@ -40,7 +43,7 @@ namespace FriendlyFood.Controllers
             {
                 var model = _context.Restaurant
                  .Include(r => r.Cuisine)
-                 .Where(r => r.RestaurantName.Contains(searchString) || r.Address.Contains(searchString) || r.City.Contains(searchString)/* || r.ZipCode == Convert.ToInt32(searchString)*/);
+                 .Where(r => r.RestaurantName.Contains(searchString) || r.Address.Contains(searchString) || r.City.Contains(searchString) || r.Cuisine.CuisineName.Contains(searchString) || r.ZipCode == integerTerm);
                 return View(await model.ToListAsync());
             }
         }
