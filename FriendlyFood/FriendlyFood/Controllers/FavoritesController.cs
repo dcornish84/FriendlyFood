@@ -26,19 +26,7 @@ namespace FriendlyFood.Controllers
             _userManager = userManager;
         }
 
-        //GET: Favorites
-        //public async Task<IActionResult> Index()
-        //{
-        //    var user = await GetCurrentUserAsync();
-
-        //    var viewModel = new FavoritesViewModel
-        //    {
-        //        FavoriteMeal = await _context.FavoriteMeal.Include(m => m.Meal).ToListAsync(),
-        //        FavoriteRestaurant = await _context.FavoritRestaurant.Include(r => r.Restaurant).ToListAsync(),
-
-        //    };
-        //    return View(viewModel);
-        //}
+        
 
         public async Task<IActionResult> Index()
         {
@@ -52,59 +40,6 @@ namespace FriendlyFood.Controllers
         }
 
 
-
-
-
-
-        // GET: Favorites/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var restaurant = await _context.Restaurant
-                .Include(r => r.ApplicationUser)
-                .Include(r => r.Cuisine)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (restaurant == null)
-            {
-                return NotFound();
-            }
-
-            return View(restaurant);
-        }
-
-        // GET: Restaurants/Create
-
-        [Authorize]
-        public async Task<IActionResult> Create()
-        {
-            var user = await GetCurrentUserAsync();
-            var cuisine = _context.Cuisine;
-            ViewData["CuisineId"] = new SelectList(cuisine, "Id", "CuisineName");
-            return View();
-        }
-        // POST: Restaurants/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,RestaurantName,Address,ZipCode,City,CuisineId,")] Restaurant restaurant)
-        {
-            var user = await GetCurrentUserAsync();
-            restaurant.ApplicationUserId = user.Id;
-            if (ModelState.IsValid)
-            {
-                _context.Add(restaurant);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-
-
-            return View(restaurant);
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -141,67 +76,9 @@ namespace FriendlyFood.Controllers
 
 
 
-        // GET: Restaurants/Edit/5
+      
 
-        [Authorize]
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var restaurant = await _context.Restaurant.FindAsync(id);
-            if (restaurant == null)
-            {
-                return NotFound();
-            }
-
-            var cuisine = _context.Cuisine;
-            ViewData["CuisineId"] = new SelectList(cuisine, "Id", "CuisineName");
-
-
-            return View(restaurant);
-        }
-
-        // POST: Restaurants/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,RestaurantName,Address,ZipCode,City,CuisineId,ApplicationUserId")] Restaurant restaurant)
-        {
-            if (id != restaurant.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(restaurant);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RestaurantExists(restaurant.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", restaurant.ApplicationUserId);
-            ViewData["CuisineId"] = new SelectList(_context.Cuisine, "Id", "Id", restaurant.CuisineId);
-            return View(restaurant);
-        }
-
-        // GET: Restaurants/Delete/5
+        // GET: Favorites/Delete/5
 
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
@@ -210,33 +87,44 @@ namespace FriendlyFood.Controllers
             {
                 return NotFound();
             }
-
-            var restaurant = await _context.Restaurant
+            var favoritesViewModel = new FavoritesViewModel();
+            var restaurant = await _context.FavoriteRestaurant
                 .Include(r => r.ApplicationUser)
                 .Include(r => r.Cuisine)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            var meal = await _context.FavoriteMeal
+                .Include(m => m.ApplicationUser)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (restaurant == null)
             {
                 return NotFound();
             }
 
-            return View(restaurant);
+            if (meal == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return View(favoritesViewModel);
         }
 
-        // POST: Restaurants/Delete/5
+        // POST: Favorites/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var restaurant = await _context.Restaurant.FindAsync(id);
-            _context.Restaurant.Remove(restaurant);
+            var restaurant = await _context.FavoriteRestaurant.FindAsync(id);
+            _context.FavoriteRestaurant.Remove(restaurant);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RestaurantExists(int id)
         {
-            return _context.Restaurant.Any(e => e.Id == id);
+            return _context.FavoriteRestaurant.Any(e => e.Id == id);
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);

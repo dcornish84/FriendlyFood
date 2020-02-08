@@ -69,7 +69,7 @@ namespace FriendlyFood.Controllers
         public async Task<IActionResult> Create()
         {
             var user = await GetCurrentUserAsync();
-            var restaurant = _context.Restaurant;
+            var restaurant = _context.FavoriteRestaurant;
             ViewData["RestaurantId"] = new SelectList(restaurant, "Id", "RestaurantName");
             return View();
         }
@@ -105,7 +105,7 @@ namespace FriendlyFood.Controllers
             {
                 return NotFound();
             }
-            var restaurant = _context.Restaurant;
+            var restaurant = _context.FavoriteRestaurant;
             ViewData["RestaurantId"] = new SelectList(restaurant, "Id", "RestaurantName");
             return View(meal);
         }
