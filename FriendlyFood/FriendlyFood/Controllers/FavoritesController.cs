@@ -91,9 +91,11 @@ namespace FriendlyFood.Controllers
             var restaurant = await _context.FavoriteRestaurant
                 .Include(r => r.ApplicationUser)
                 .Include(r => r.Cuisine)
+                .Include(r => r.Id)
                 .FirstOrDefaultAsync(m => m.Id == id);
             var meal = await _context.FavoriteMeal
                 .Include(m => m.ApplicationUser)
+                .Include(m => m.Id)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (restaurant == null)
