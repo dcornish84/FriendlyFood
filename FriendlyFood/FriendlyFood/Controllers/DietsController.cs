@@ -28,8 +28,8 @@ namespace FriendlyFood.Controllers
         public async Task<IActionResult> Index()
         {
             var dietsviewModel = new DietsViewModel();
-             dietsviewModel.RestaurantDiet = await _context.RestaurantDiet.ToListAsync();
-            dietsviewModel.MealDiet = await _context.MealDiet.ToListAsync();
+             dietsviewModel.RestaurantDiet = await _context.RestaurantDiet.Include(r => r.DietType).ToListAsync();
+            dietsviewModel.MealDiet = await _context.MealDiet.Include(r => r.DietType).ToListAsync();
             return View(dietsviewModel);
         }
 
