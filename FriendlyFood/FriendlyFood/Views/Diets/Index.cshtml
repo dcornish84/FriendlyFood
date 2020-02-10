@@ -1,0 +1,47 @@
+﻿@model FriendlyFood.Models.ViewModels.DietsViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Diets</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RestaurantDiet)
+            </th>
+</tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.RestaurantDiet)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DietType)
+                </td>
+             </tr>
+        }
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MealDiet)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.MealDiet)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DietType)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
