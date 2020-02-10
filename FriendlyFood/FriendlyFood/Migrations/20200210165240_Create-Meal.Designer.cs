@@ -4,14 +4,16 @@ using FriendlyFood.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FriendlyFood.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200210165240_Create-Meal")]
+    partial class CreateMeal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -773,13 +775,13 @@ namespace FriendlyFood.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b747371a-af46-4c8b-93ba-219406d8772e",
+                            ConcurrencyStamp = "4689a973-6aa1-419d-9e0b-e06078f5c294",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMaaZMIzvjLNJsNYgPPOhuTXiCveWv+38Ocd3fuo8trILV/THIN076pkSbrXy1QEjg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOnI5oeLx7Y11MT2bJkESnDEZVmaBU1UBsxfluBTwHmRHzVevxovoAsvzt4gmXnc1w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,

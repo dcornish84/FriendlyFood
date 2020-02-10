@@ -68,10 +68,10 @@ namespace FriendlyFood.Controllers
         [Authorize]
         public async Task<IActionResult> Create()
         {
-            var user = await GetCurrentUserAsync();
-            var restaurant = _context.FavoriteRestaurant;
-            ViewData["RestaurantId"] = new SelectList(restaurant, "Id", "RestaurantName");
+            ViewData["RestaurantId"] = new SelectList(_context.FavoriteRestaurant, "Id", "RestaurantName");
             return View();
+
+           
         }
 
         // POST: Meals/Create
@@ -79,7 +79,7 @@ namespace FriendlyFood.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MealName,Description,RestaurantId,ApplicationUserId")] Meal meal)
+        public async Task<IActionResult> Create([Bind("Id,MealName,Description,RestaurantId, RestaurantName, ApplicationUserId")] Meal meal)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,8 @@ namespace FriendlyFood.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", meal.ApplicationUserId);
+            
+            ViewData["RestaurantId"] = new SelectList(_context.FavoriteRestaurant, "Id", "RestaurantName", meal.RestaurantId);
             return View(meal);
         }
 
@@ -105,8 +106,8 @@ namespace FriendlyFood.Controllers
             {
                 return NotFound();
             }
-            var restaurant = _context.FavoriteRestaurant;
-            ViewData["RestaurantId"] = new SelectList(restaurant, "Id", "RestaurantName");
+           
+            ViewData["RestaurantId"] = new SelectList(_context.FavoriteRestaurant, "Id", "RestaurantName", meal.RestaurantId);
             return View(meal);
         }
 
@@ -143,6 +144,7 @@ namespace FriendlyFood.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", meal.ApplicationUserId);
+            ViewData["RestaurantId"] = new SelectList(_context.FavoriteRestaurant, "Id", "Id", meal.RestaurantId);
             return View(meal);
         }
 
