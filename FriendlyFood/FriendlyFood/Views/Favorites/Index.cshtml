@@ -31,12 +31,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Meal.Restaurant.RestaurantName)
             </td>
+            <td>
 
-            @*<form asp-action="Delete">
-                <input type="hidden" asp-for="FavoriteMeal" />
-                <input type="submit" value="Delete" class="btn btn-danger" />
-                </form>*@
-
+                <form asp-action="DeleteFaveRest">
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+        
+        </form>
+            </td>
 
         </tr>
         }
@@ -65,11 +66,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Restaurant.Cuisine.CuisineName)
             </td>
-            @*<form asp-action="Delete">
-                <input type="hidden" asp-for="FavoriteRestaurant" />
-                <input type="submit" value="Delete" class="btn btn-danger" /> |
-                <a asp-action="Index">Back to List</a>
-            </form>*@
+            <td>
+
+                <form asp-action="Delete">
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
+                </form>
+            </td>
 
 
         </tr>
