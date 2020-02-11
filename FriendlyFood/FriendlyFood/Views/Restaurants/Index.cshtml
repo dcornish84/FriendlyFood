@@ -72,9 +72,10 @@
                         <input type="hidden" name="id" value="@item.Id" />
                         <input type="submit" class="btn alert-primary" id="btn-@item.Id" value="Add to Favorites" />
                     </form>
-                    @*<label asp-for="Diets" class="control-label"></label>
-                    <select asp-for="" class="form-control" asp-items="@Model.DietType"></select>
-                    <span asp-validation-for="" class="text-danger"></span>*@
+                    <form asp-controller="DietTypes" asp-action="GetDiet">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <input type="submit" class="btn alert-primary" id="btn-@item.Id" value="Dietary Tag" />
+                    </form>
                 </td>
 
             </tr>

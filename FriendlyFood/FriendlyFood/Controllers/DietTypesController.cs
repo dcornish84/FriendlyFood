@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FriendlyFood.Data;
 using FriendlyFood.Models;
+using Microsoft.AspNetCore.Identity;
+using FriendlyFood.Models.ViewModels;
 
 namespace FriendlyFood.Controllers
 {
     public class DietTypesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DietTypesController(ApplicationDbContext context)
+        public DietTypesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: DietTypes
@@ -42,6 +46,44 @@ namespace FriendlyFood.Controllers
 
             return View(dietType);
         }
+
+        //get all the DietTypes
+        public async Task<IActionResult> GetDiet(int id)
+        {
+            var addDietTagViewModel = new AddDietTagViewModel()
+            {
+                RestaurantId = id
+            };
+            var diets =  _context.DietType;
+            ViewData["DietTypeId"] = new SelectList(diets, "Id", "DietName");
+            return View("AddDietRest", addDietTagViewModel);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddDietRest(AddDietTagViewModel viewModel)
+        {
+            var user = await GetCurrentUserAsync();
+            viewModel.RestaurantDiets = viewModel.DietTypeIds.Select(dietTypeId => new RestaurantDiet
+            {
+                
+                RestaurantId = viewModel.RestaurantId,
+                DietTypeId = dietTypeId,
+                
+
+            }).ToList();
+            foreach (var restDiet in viewModel.RestaurantDiets)
+            {
+                _context.RestaurantDiet.Add(restDiet);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "Restaurants", viewModel.RestaurantId);
+
+        }
+
+
 
         // GET: DietTypes/Create
         public IActionResult Create()
@@ -149,5 +191,7 @@ namespace FriendlyFood.Controllers
         {
             return _context.DietType.Any(e => e.Id == id);
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }

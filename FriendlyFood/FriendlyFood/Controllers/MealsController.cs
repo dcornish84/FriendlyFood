@@ -54,6 +54,7 @@ namespace FriendlyFood.Controllers
             var meal = await _context.Meal
                 .Include(m => m.ApplicationUser)
                 .Include(r => r.Restaurant)
+               
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (meal == null)
             {
@@ -68,6 +69,7 @@ namespace FriendlyFood.Controllers
         [Authorize]
         public async Task<IActionResult> Create()
         {
+            var user = await GetCurrentUserAsync();
             ViewData["RestaurantId"] = new SelectList(_context.FavoriteRestaurant, "Id", "RestaurantName");
             return View();
 

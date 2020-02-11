@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,6 +29,9 @@ namespace FriendlyFood.Models
 
         public Cuisine Cuisine { get; set; }
         public List<Cuisine> Cuisines { get; set; }
+
+        public RestaurantDiet RestaurantDiet { get; set; }
+        
         public string ApplicationUserId { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; }
