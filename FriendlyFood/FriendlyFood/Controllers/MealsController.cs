@@ -38,7 +38,7 @@ namespace FriendlyFood.Controllers
             {
                 var model = _context.Meal
                   .Include(r => r.Restaurant)
-                 .Where(r => r.MealName.Contains(searchString));
+                 .Where(r => r.MealName.Contains(searchString) || r.Restaurant.RestaurantName.Contains(searchString));
                 return View(await model.ToListAsync());
             }
         }
