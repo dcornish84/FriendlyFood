@@ -35,13 +35,13 @@ namespace FriendlyFood.Controllers
 
             if (searchString == null)
             {
-                var model = _context.FavoriteRestaurant
+                var model = _context.Restaurant
                     .Include(r => r.Cuisine);
                 return View(await model.ToListAsync());
             }
             else
             {
-                var model = _context.FavoriteRestaurant
+                var model = _context.Restaurant
                  .Include(r => r.Cuisine)
                  .Where(r => r.RestaurantName.Contains(searchString) || r.Address.Contains(searchString) || r.City.Contains(searchString) || r.Cuisine.CuisineName.Contains(searchString) || r.ZipCode == integerTerm);
                 return View(await model.ToListAsync());
@@ -56,7 +56,7 @@ namespace FriendlyFood.Controllers
                 return NotFound();
             }
 
-            var restaurant = await _context.FavoriteRestaurant
+            var restaurant = await _context.Restaurant
                 .Include(r => r.ApplicationUser)
                 .Include(r => r.Cuisine)
                 .Include(r => r.RestaurantDiet)
@@ -112,7 +112,7 @@ namespace FriendlyFood.Controllers
                 return NotFound();
             }
 
-            var restaurant = await _context.FavoriteRestaurant.FindAsync(id);
+            var restaurant = await _context.Restaurant.FindAsync(id);
             if (restaurant == null)
             {
                 return NotFound();
@@ -172,7 +172,7 @@ namespace FriendlyFood.Controllers
                 return NotFound();
             }
 
-            var restaurant = await _context.FavoriteRestaurant
+            var restaurant = await _context.Restaurant
                 .Include(r => r.ApplicationUser)
                 .Include(r => r.Cuisine)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -189,15 +189,15 @@ namespace FriendlyFood.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var restaurant = await _context.FavoriteRestaurant.FindAsync(id);
-            _context.FavoriteRestaurant.Remove(restaurant);
+            var restaurant = await _context.Restaurant.FindAsync(id);
+            _context.Restaurant.Remove(restaurant);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RestaurantExists(int id)
         {
-            return _context.FavoriteRestaurant.Any(e => e.Id == id);
+            return _context.Restaurant.Any(e => e.Id == id);
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);

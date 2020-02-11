@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FriendlyFood.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200211154117_DietTypes")]
-    partial class DietTypes
+    [Migration("20200211215735_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -200,7 +200,7 @@ namespace FriendlyFood.Migrations
 
                     b.HasIndex("RestaurantId");
 
-                    b.ToTable("FavoritRestaurant");
+                    b.ToTable("FavoriteRestaurant");
 
                     b.HasData(
                         new
@@ -371,7 +371,7 @@ namespace FriendlyFood.Migrations
 
                     b.HasIndex("MealId");
 
-                    b.ToTable("FavoriteRestaurant");
+                    b.ToTable("Restaurant");
 
                     b.HasData(
                         new
@@ -523,7 +523,8 @@ namespace FriendlyFood.Migrations
 
                     b.HasIndex("DietTypeId");
 
-                    b.HasIndex("RestaurantId");
+                    b.HasIndex("RestaurantId")
+                        .IsUnique();
 
                     b.ToTable("RestaurantDiet");
 
@@ -775,13 +776,13 @@ namespace FriendlyFood.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "44d9615c-6e8b-448f-aaa1-4a5c184a3698",
+                            ConcurrencyStamp = "4299b0d9-c30a-49db-942b-2d051144f443",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECK8GvrmBLzoRJkOfFq6zzM9osY3JN9cK4yy/rll5VG4zWp7N7EDZ2kxf3h0o4GX/Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBOxztx4ubfrKXXk2NQYuRvnfE+pS6aBx/STWBi2IprE7qq0d3kVSOZBkY5qTRSqdA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -887,8 +888,8 @@ namespace FriendlyFood.Migrations
                         .IsRequired();
 
                     b.HasOne("FriendlyFood.Models.Restaurant", "Restaurant")
-                        .WithMany("RestaurantDiets")
-                        .HasForeignKey("RestaurantId")
+                        .WithOne("RestaurantDiet")
+                        .HasForeignKey("FriendlyFood.Models.RestaurantDiet", "RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

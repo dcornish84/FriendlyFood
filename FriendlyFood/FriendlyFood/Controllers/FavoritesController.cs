@@ -32,7 +32,7 @@ namespace FriendlyFood.Controllers
         {
             var favoritesViewModel = new FavoritesViewModel();
             var user = await GetCurrentUserAsync();
-            favoritesViewModel.FavoriteRestaurant = await _context.FavoritRestaurant
+            favoritesViewModel.FavoriteRestaurant = await _context.FavoriteRestaurant
                 .Where(a => a.ApplicationUserId == user.Id).Include(a => a.Restaurant).Include(a => a.Restaurant.Cuisine).ToListAsync();
             favoritesViewModel.FavoriteMeal = await _context.FavoriteMeal
                 .Where(a => a.ApplicationUserId == user.Id).Include(a => a.Meal).Include(a => a.Meal.Restaurant).ToListAsync();
@@ -89,7 +89,7 @@ namespace FriendlyFood.Controllers
                 return NotFound();
             }
 
-            var favoriteRestaurant = await _context.FavoritRestaurant
+            var favoriteRestaurant = await _context.FavoriteRestaurant
                 .Include(f => f.ApplicationUser)
                 .Include(f => f.Restaurant)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -106,15 +106,15 @@ namespace FriendlyFood.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var favoriteRestaurant = await _context.FavoritRestaurant.FindAsync(id);
-            _context.FavoritRestaurant.Remove(favoriteRestaurant);
+            var favoriteRestaurant = await _context.FavoriteRestaurant.FindAsync(id);
+            _context.FavoriteRestaurant.Remove(favoriteRestaurant);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool FavoriteRestaurantExists(int id)
         {
-            return _context.FavoritRestaurant.Any(e => e.Id == id);
+            return _context.FavoriteRestaurant.Any(e => e.Id == id);
         }
 
         // GET: FavoriteMeals/Delete/5

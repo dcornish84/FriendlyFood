@@ -65,34 +65,6 @@ namespace FriendlyFood.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MealDiet",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MealId = table.Column<int>(nullable: false),
-                    DietTypeId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MealDiet", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RestaurantDiet",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DietTypeId = table.Column<int>(nullable: false),
-                    RestaurantId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RestaurantDiet", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -199,6 +171,26 @@ namespace FriendlyFood.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MealImage",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MealId = table.Column<int>(nullable: false),
+                    ApplicationUserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MealImage", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MealImage_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FavoriteMeal",
                 columns: table => new
                 {
@@ -219,7 +211,7 @@ namespace FriendlyFood.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FavoritRestaurant",
+                name: "FavoriteRestaurant",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -229,9 +221,9 @@ namespace FriendlyFood.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FavoritRestaurant", x => x.Id);
+                    table.PrimaryKey("PK_FavoriteRestaurant", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FavoritRestaurant_AspNetUsers_ApplicationUserId",
+                        name: "FK_FavoriteRestaurant_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -261,23 +253,29 @@ namespace FriendlyFood.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MealImage",
+                name: "MealDiet",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MealId = table.Column<int>(nullable: false),
-                    ApplicationUserId = table.Column<string>(nullable: true)
+                    DietTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MealImage", x => x.Id);
+                    table.PrimaryKey("PK_MealDiet", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MealImage_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
+                        name: "FK_MealDiet_DietType_DietTypeId",
+                        column: x => x.DietTypeId,
+                        principalTable: "DietType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MealDiet_Meal_MealId",
+                        column: x => x.MealId,
+                        principalTable: "Meal",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -291,7 +289,8 @@ namespace FriendlyFood.Migrations
                     ZipCode = table.Column<int>(nullable: false),
                     City = table.Column<string>(nullable: true),
                     CuisineId = table.Column<int>(nullable: false),
-                    ApplicationUserId = table.Column<string>(nullable: true)
+                    ApplicationUserId = table.Column<string>(nullable: true),
+                    MealId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -300,6 +299,12 @@ namespace FriendlyFood.Migrations
                         name: "FK_Restaurant_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Restaurant_Meal_MealId",
+                        column: x => x.MealId,
+                        principalTable: "Meal",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -324,10 +329,36 @@ namespace FriendlyFood.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "RestaurantDiet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DietTypeId = table.Column<int>(nullable: false),
+                    RestaurantId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RestaurantDiet", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RestaurantDiet_DietType_DietTypeId",
+                        column: x => x.DietTypeId,
+                        principalTable: "DietType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RestaurantDiet_Restaurant_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurant",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "City", "FirstName", "LastName", "ZipCode" },
-                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "d5142b3e-5a2a-4b63-97c6-f9431e891325", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAENEnB2MMkmcdCVN0b4rsVYXXMj1e2npsjNPxBeJ3vyXgfX31W8ucALvmPhao7O5Yew==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com", "Nashville", "admin", "admin", "37220" });
+                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "4299b0d9-c30a-49db-942b-2d051144f443", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEBOxztx4ubfrKXXk2NQYuRvnfE+pS6aBx/STWBi2IprE7qq0d3kVSOZBkY5qTRSqdA==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com", "Nashville", "admin", "admin", "37220" });
 
             migrationBuilder.InsertData(
                 table: "Cuisine",
@@ -337,10 +368,10 @@ namespace FriendlyFood.Migrations
                     { 13, "Breakfast", null },
                     { 12, "American", null },
                     { 11, "Korean", null },
-                    { 9, "Thai", null },
-                    { 8, "Pizza", null },
-                    { 7, "Mexican", null },
                     { 10, "Coffee", null },
+                    { 9, "Thai", null },
+                    { 7, "Mexican", null },
+                    { 8, "Pizza", null },
                     { 5, "Burger", null },
                     { 4, "Italian", null },
                     { 3, "Indian", null },
@@ -354,42 +385,35 @@ namespace FriendlyFood.Migrations
                 columns: new[] { "Id", "DietName" },
                 values: new object[,]
                 {
+                    { 3, "Dairy Free" },
                     { 1, "Vegetarian" },
                     { 2, "Vegan" },
-                    { 3, "Dairy Free" },
                     { 4, "Gluten Free" }
                 });
 
             migrationBuilder.InsertData(
-                table: "MealDiet",
-                columns: new[] { "Id", "DietTypeId", "MealId" },
+                table: "Restaurant",
+                columns: new[] { "Id", "Address", "ApplicationUserId", "City", "CuisineId", "MealId", "RestaurantName", "ZipCode" },
                 values: new object[,]
                 {
-                    { 1, 1, 1 },
-                    { 2, 2, 2 }
+                    { 1, "1100 Fatherland St SUITE 104", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 1, null, "Wild Cow", 37206 },
+                    { 2, "1888 Eastland Ave", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 2, null, "Graze", 37206 },
+                    { 3, "3415 West End Ave", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 3, null, "Woodlands", 37203 },
+                    { 4, "1222 4th Ave N", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 4, null, "City House", 37208 },
+                    { 5, "4013 Charlotte Ave", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 5, null, "Farm Burger", 37209 },
+                    { 6, "2112 8th Ave S", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 6, null, "Love Peace & Pho", 37204 },
+                    { 7, "416 21st Ave S", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 7, null, "San Antonio Taco Co", 37203 },
+                    { 8, "1925 Broadway", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 8, null, "Two Boots Nashville", 37203 },
+                    { 9, "316 Mccall St", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 9, null, "Siam Cafe", 37211 },
+                    { 10, "15 Hermitage Ave", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 10, null, "Crema", 37204 },
+                    { 11, "6410 Charlotte Pike #108", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 11, null, "Korea House", 37209 },
+                    { 12, "1200 4th Ave N", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 12, null, "Henrietta Red", 37208 },
+                    { 13, "1000 Main St", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 13, null, "Marché Artisan Foods", 37206 }
                 });
 
             migrationBuilder.InsertData(
-                table: "RestaurantDiet",
-                columns: new[] { "Id", "DietTypeId", "RestaurantId" },
-                values: new object[,]
-                {
-                    { 1, 1, 1 },
-                    { 2, 2, 2 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "FavoritRestaurant",
+                table: "FavoriteRestaurant",
                 columns: new[] { "Id", "ApplicationUserId", "RestaurantId" },
-                values: new object[,]
-                {
-                    { 1, "00000000-ffff-ffff-ffff-ffffffffffff", 1 },
-                    { 2, "00000000-ffff-ffff-ffff-ffffffffffff", 2 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "FavoriteMeal",
-                columns: new[] { "Id", "ApplicationUserId", "MealId" },
                 values: new object[,]
                 {
                     { 1, "00000000-ffff-ffff-ffff-ffffffffffff", 1 },
@@ -408,23 +432,30 @@ namespace FriendlyFood.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Restaurant",
-                columns: new[] { "Id", "Address", "ApplicationUserId", "City", "CuisineId", "RestaurantName", "ZipCode" },
+                table: "RestaurantDiet",
+                columns: new[] { "Id", "DietTypeId", "RestaurantId" },
                 values: new object[,]
                 {
-                    { 11, "6410 Charlotte Pike #108", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 11, "Korea House", 37209 },
-                    { 10, "15 Hermitage Ave", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 10, "Crema", 37204 },
-                    { 9, "316 Mccall St", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 9, "Siam Cafe", 37211 },
-                    { 8, "1925 Broadway", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 8, "Two Boots Nashville", 37203 },
-                    { 7, "416 21st Ave S", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 7, "San Antonio Taco Co", 37203 },
-                    { 3, "3415 West End Ave", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 3, "Woodlands", 37203 },
-                    { 5, "4013 Charlotte Ave", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 5, "Farm Burger", 37209 },
-                    { 4, "1222 4th Ave N", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 4, "City House", 37208 },
-                    { 12, "1200 4th Ave N", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 12, "Henrietta Red", 37208 },
-                    { 2, "1888 Eastland Ave", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 2, "Graze", 37206 },
-                    { 1, "1100 Fatherland St SUITE 104", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 1, "Wild Cow", 37206 },
-                    { 6, "2112 8th Ave S", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 6, "Love Peace & Pho", 37204 },
-                    { 13, "1000 Main St", "00000000-ffff-ffff-ffff-ffffffffffff", "Nashville", 13, "Marché Artisan Foods", 37206 }
+                    { 1, 1, 1 },
+                    { 2, 2, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "FavoriteMeal",
+                columns: new[] { "Id", "ApplicationUserId", "MealId" },
+                values: new object[,]
+                {
+                    { 1, "00000000-ffff-ffff-ffff-ffffffffffff", 1 },
+                    { 2, "00000000-ffff-ffff-ffff-ffffffffffff", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MealDiet",
+                columns: new[] { "Id", "DietTypeId", "MealId" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 2, 2 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -477,14 +508,39 @@ namespace FriendlyFood.Migrations
                 column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FavoritRestaurant_ApplicationUserId",
-                table: "FavoritRestaurant",
+                name: "IX_FavoriteMeal_MealId",
+                table: "FavoriteMeal",
+                column: "MealId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FavoriteRestaurant_ApplicationUserId",
+                table: "FavoriteRestaurant",
                 column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FavoriteRestaurant_RestaurantId",
+                table: "FavoriteRestaurant",
+                column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Meal_ApplicationUserId",
                 table: "Meal",
                 column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Meal_RestaurantId",
+                table: "Meal",
+                column: "RestaurantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MealDiet_DietTypeId",
+                table: "MealDiet",
+                column: "DietTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MealDiet_MealId",
+                table: "MealDiet",
+                column: "MealId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MealImage_ApplicationUserId",
@@ -501,6 +557,46 @@ namespace FriendlyFood.Migrations
                 table: "Restaurant",
                 column: "CuisineId");
 
+            migrationBuilder.CreateIndex(
+                name: "IX_Restaurant_MealId",
+                table: "Restaurant",
+                column: "MealId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantDiet_DietTypeId",
+                table: "RestaurantDiet",
+                column: "DietTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantDiet_RestaurantId",
+                table: "RestaurantDiet",
+                column: "RestaurantId"
+               );
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_FavoriteMeal_Meal_MealId",
+                table: "FavoriteMeal",
+                column: "MealId",
+                principalTable: "Meal",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_FavoriteRestaurant_Restaurant_RestaurantId",
+                table: "FavoriteRestaurant",
+                column: "RestaurantId",
+                principalTable: "Restaurant",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Meal_Restaurant_RestaurantId",
+                table: "Meal",
+                column: "RestaurantId",
+                principalTable: "Restaurant",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
             migrationBuilder.AddForeignKey(
                 name: "FK_Restaurant_Cuisine_CuisineId",
                 table: "Restaurant",
@@ -513,12 +609,20 @@ namespace FriendlyFood.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
+                name: "FK_Meal_AspNetUsers_ApplicationUserId",
+                table: "Meal");
+
+            migrationBuilder.DropForeignKey(
                 name: "FK_Restaurant_AspNetUsers_ApplicationUserId",
                 table: "Restaurant");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Cuisine_Restaurant_RestaurantId",
                 table: "Cuisine");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Meal_Restaurant_RestaurantId",
+                table: "Meal");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -536,16 +640,10 @@ namespace FriendlyFood.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "DietType");
-
-            migrationBuilder.DropTable(
                 name: "FavoriteMeal");
 
             migrationBuilder.DropTable(
-                name: "FavoritRestaurant");
-
-            migrationBuilder.DropTable(
-                name: "Meal");
+                name: "FavoriteRestaurant");
 
             migrationBuilder.DropTable(
                 name: "MealDiet");
@@ -560,6 +658,9 @@ namespace FriendlyFood.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "DietType");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
@@ -567,6 +668,9 @@ namespace FriendlyFood.Migrations
 
             migrationBuilder.DropTable(
                 name: "Cuisine");
+
+            migrationBuilder.DropTable(
+                name: "Meal");
         }
     }
 }

@@ -5,6 +5,13 @@
     <UserSecretsId>aspnet-FriendlyFood-4944C0EA-80C0-488E-B111-7B49FA86D13A</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20200211212059_TestMig.cs" />
+    <Compile Remove="Migrations\20200211212059_TestMig.Designer.cs" />
+    <Compile Remove="Migrations\20200211213436_TestTest.cs" />
+    <Compile Remove="Migrations\20200211213436_TestTest.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.0" />

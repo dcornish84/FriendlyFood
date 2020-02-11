@@ -198,7 +198,7 @@ namespace FriendlyFood.Migrations
 
                     b.HasIndex("RestaurantId");
 
-                    b.ToTable("FavoritRestaurant");
+                    b.ToTable("FavoriteRestaurant");
 
                     b.HasData(
                         new
@@ -369,7 +369,7 @@ namespace FriendlyFood.Migrations
 
                     b.HasIndex("MealId");
 
-                    b.ToTable("FavoriteRestaurant");
+                    b.ToTable("Restaurant");
 
                     b.HasData(
                         new
@@ -774,13 +774,13 @@ namespace FriendlyFood.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8b0e24f7-7f7c-45f4-895d-2c56d50f5d82",
+                            ConcurrencyStamp = "4299b0d9-c30a-49db-942b-2d051144f443",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEA/yBO7qGHx8t6O3V8/NOySyoJ6lwiFSDQZSwMcpAO9VGGE7JWALH6aaG74kkiPdeA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBOxztx4ubfrKXXk2NQYuRvnfE+pS6aBx/STWBi2IprE7qq0d3kVSOZBkY5qTRSqdA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
