@@ -35,7 +35,7 @@ namespace FriendlyFood.Controllers
             favoritesViewModel.FavoriteRestaurant = await _context.FavoritRestaurant
                 .Where(a => a.ApplicationUserId == user.Id).Include(a => a.Restaurant).Include(a => a.Restaurant.Cuisine).ToListAsync();
             favoritesViewModel.FavoriteMeal = await _context.FavoriteMeal
-                .Where(a => a.ApplicationUserId == user.Id).Include(a => a.Meal).ToListAsync();
+                .Where(a => a.ApplicationUserId == user.Id).Include(a => a.Meal).Include(a => a.Meal.Restaurant).ToListAsync();
             return View(favoritesViewModel);
         }
 
@@ -115,6 +115,42 @@ namespace FriendlyFood.Controllers
         private bool FavoriteRestaurantExists(int id)
         {
             return _context.FavoritRestaurant.Any(e => e.Id == id);
+        }
+
+        // GET: FavoriteMeals/Delete/5
+        public async Task<IActionResult> DeleteMeal(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var favoriteMeal = await _context.FavoriteMeal
+                .Include(f => f.ApplicationUser)
+                .Include(f => f.Meal)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (favoriteMeal == null)
+            {
+                return NotFound();
+            }
+
+            return View(favoriteMeal);
+        }
+
+        // POST: FavoriteMeals/Delete/5
+        [HttpPost, ActionName("DeleteMealConfirmed")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteMealConfirmed(int id)
+        {
+            var favoriteMeal = await _context.FavoriteMeal.FindAsync(id);
+            _context.FavoriteMeal.Remove(favoriteMeal);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool FavoriteMealExists(int id)
+        {
+            return _context.FavoriteMeal.Any(e => e.Id == id);
         }
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
