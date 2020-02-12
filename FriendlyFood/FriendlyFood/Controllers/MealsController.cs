@@ -54,7 +54,7 @@ namespace FriendlyFood.Controllers
             var meal = await _context.Meal
                 .Include(m => m.ApplicationUser)
                 .Include(r => r.Restaurant)
-                .Include(r => r.MealDiet)
+                .Include(r => r.MealDiets)
                     .ThenInclude(rd => rd.DietType)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (meal == null)
@@ -71,7 +71,7 @@ namespace FriendlyFood.Controllers
         public async Task<IActionResult> Create()
         {
             var user = await GetCurrentUserAsync();
-            ViewData["RestaurantId"] = new SelectList(_context.FavoriteRestaurant, "Id", "RestaurantName");
+            ViewData["RestaurantId"] = new SelectList(_context.Restaurant, "Id", "RestaurantName");
             return View();
 
            
@@ -91,7 +91,7 @@ namespace FriendlyFood.Controllers
                 return RedirectToAction(nameof(Index));
             }
             
-            ViewData["RestaurantId"] = new SelectList(_context.FavoriteRestaurant, "Id", "RestaurantName", meal.RestaurantId);
+            ViewData["RestaurantId"] = new SelectList(_context.Restaurant, "Id", "RestaurantName", meal.RestaurantId);
             return View(meal);
         }
 

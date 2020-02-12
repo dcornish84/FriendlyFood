@@ -67,10 +67,10 @@ namespace FriendlyFood.Controllers
             var user = await GetCurrentUserAsync();
             viewModel.RestaurantDiets = viewModel.DietTypeIds.Select(dietTypeId => new RestaurantDiet
             {
-                
+
                 RestaurantId = viewModel.RestaurantId,
                 DietTypeId = dietTypeId,
-                
+
 
             }).ToList();
             foreach (var restDiet in viewModel.RestaurantDiets)
@@ -79,7 +79,7 @@ namespace FriendlyFood.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction("Details", "Restaurants", viewModel.RestaurantId);
+            return RedirectToAction("Details", "Restaurants", new { id = viewModel.RestaurantId });
 
         }
 
@@ -115,7 +115,7 @@ namespace FriendlyFood.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction("Details", "Meals", viewModel.MealId);
+            return RedirectToAction("Details", "Meals", new { id = viewModel.MealId });
 
         }
 

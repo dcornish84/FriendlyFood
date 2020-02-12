@@ -11,6 +11,6 @@ namespace FriendlyFood.Models
 
         public string DietName { get; set; }
 
-        
+        public List<MealDiet> MealDiets { get; set; }
     }
 }
