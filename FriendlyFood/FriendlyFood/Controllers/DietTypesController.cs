@@ -47,7 +47,7 @@ namespace FriendlyFood.Controllers
             return View(dietType);
         }
 
-        //get all the DietTypes
+        //get all the RestaurantDietTypes
         public async Task<IActionResult> GetDiet(int id)
         {
             var addDietTagViewModel = new AddDietTagViewModel()
@@ -82,6 +82,8 @@ namespace FriendlyFood.Controllers
             return RedirectToAction("Details", "Restaurants", viewModel.RestaurantId);
 
         }
+
+
 
 
 
