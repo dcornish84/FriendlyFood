@@ -83,6 +83,42 @@ namespace FriendlyFood.Controllers
 
         }
 
+        //get all the RestaurantDietTypes
+        public async Task<IActionResult> GetMealDiet(int id)
+        {
+            var addDietTagViewModel = new AddDietTagViewModel()
+            {
+                MealId = id
+            };
+            var diets = _context.DietType;
+            ViewData["DietTypeId"] = new SelectList(diets, "Id", "DietName");
+            return View("AddDietMeal", addDietTagViewModel);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddDietMeal(AddDietTagViewModel viewModel)
+        {
+            var user = await GetCurrentUserAsync();
+            viewModel.MealDiets = viewModel.DietTypeIds.Select(dietTypeId => new MealDiet
+            {
+
+                MealId = viewModel.MealId,
+                DietTypeId = dietTypeId,
+
+
+            }).ToList();
+            foreach (var mealDiet in viewModel.MealDiets)
+            {
+                _context. MealDiet.Add(mealDiet);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "Meals", viewModel.MealId);
+
+        }
+
 
 
 

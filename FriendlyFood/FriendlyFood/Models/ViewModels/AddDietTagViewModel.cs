@@ -14,5 +14,9 @@ namespace FriendlyFood.Models.ViewModels
         public List<int> DietTypeIds { get; set; }
 
         public List<RestaurantDiet> RestaurantDiets { get; set; }
+
+        public List<MealDiet> MealDiets { get; set; }
+
+        public int MealId { get; set; }
     }
 }
