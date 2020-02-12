@@ -29,8 +29,8 @@ namespace FriendlyFood.Models
 
         public Cuisine Cuisine { get; set; }
         public List<Cuisine> Cuisines { get; set; }
-
-        public RestaurantDiet RestaurantDiet { get; set; }
+        
+        public List<RestaurantDiet> RestaurantDiets { get; set; }
         
         public string ApplicationUserId { get; set; }
 

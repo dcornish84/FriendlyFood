@@ -57,6 +57,10 @@
                     <input type="hidden" name="id" value="@item.Id" />
                     <input type="submit" class="btn alert-primary" id="btn-@item.Id" value="Add to Favorites" />
                 </form>
+                <form asp-controller="DietTypes" asp-action="GetMealDiet">
+                    <input type="hidden" name="id" value="@item.Id" />
+                    <input type="submit" class="btn alert-primary" id="btn-@item.Id" value="Dietary Tag" />
+                </form>
             </td>
         </tr>
 }

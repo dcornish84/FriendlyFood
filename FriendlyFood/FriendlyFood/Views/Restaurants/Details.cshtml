@@ -41,10 +41,13 @@
             @Html.DisplayFor(model => model.Cuisine.CuisineName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.RestaurantDiet.DietType)
+            Diet
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.RestaurantDiet.DietType.DietName)
+            @foreach (var restaurant in Model.RestaurantDiets)
+            {
+                <li>@Html.DisplayFor(modelItem => restaurant.DietType.DietName) </li>
+            }
         </dd>
 
     </dl>

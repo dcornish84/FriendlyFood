@@ -67,10 +67,10 @@ namespace FriendlyFood.Controllers
             var user = await GetCurrentUserAsync();
             viewModel.RestaurantDiets = viewModel.DietTypeIds.Select(dietTypeId => new RestaurantDiet
             {
-                
+
                 RestaurantId = viewModel.RestaurantId,
                 DietTypeId = dietTypeId,
-                
+
 
             }).ToList();
             foreach (var restDiet in viewModel.RestaurantDiets)
@@ -79,7 +79,43 @@ namespace FriendlyFood.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction("Details", "Restaurants", viewModel.RestaurantId);
+            return RedirectToAction("Details", "Restaurants", new { id = viewModel.RestaurantId });
+
+        }
+
+        //get all the RestaurantDietTypes
+        public async Task<IActionResult> GetMealDiet(int id)
+        {
+            var addDietTagViewModel = new AddDietTagViewModel()
+            {
+                MealId = id
+            };
+            var diets = _context.DietType;
+            ViewData["DietTypeId"] = new SelectList(diets, "Id", "DietName");
+            return View("AddDietMeal", addDietTagViewModel);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddDietMeal(AddDietTagViewModel viewModel)
+        {
+            var user = await GetCurrentUserAsync();
+            viewModel.MealDiets = viewModel.DietTypeIds.Select(dietTypeId => new MealDiet
+            {
+
+                MealId = viewModel.MealId,
+                DietTypeId = dietTypeId,
+
+
+            }).ToList();
+            foreach (var mealDiet in viewModel.MealDiets)
+            {
+                _context. MealDiet.Add(mealDiet);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "Meals", new { id = viewModel.MealId });
 
         }
 

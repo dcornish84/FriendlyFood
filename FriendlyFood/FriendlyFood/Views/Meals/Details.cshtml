@@ -28,12 +28,15 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Restaurant.RestaurantName)
         </dd>
-        @*<dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MealDiet.DietType)
+        <dt class="col-sm-2">
+            Diet
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MealDiet.DietType.DietName)
-        </dd>*@
+            @foreach (var meal in Model.MealDiets)
+            {
+                <li>@Html.DisplayFor(modelItem => meal.DietType.DietName) </li>
+            }
+        </dd>
 
     </dl>
 </div>
