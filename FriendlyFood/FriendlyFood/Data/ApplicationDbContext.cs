@@ -23,7 +23,7 @@ namespace FriendlyFood.Data
 
         public DbSet<FavoriteMeal> FavoriteMeal { get; set; }
 
-        public DbSet<FavoriteRestaurant> FavoritRestaurant { get; set; }
+        public DbSet<FavoriteRestaurant> FavoriteRestaurant { get; set; }
 
         public DbSet<Meal> Meal { get; set; }
 
@@ -31,7 +31,7 @@ namespace FriendlyFood.Data
 
         public DbSet<MealImage> MealImage { get; set; }
 
-        public DbSet<Restaurant> FavoriteRestaurant { get; set; }
+        public DbSet<Restaurant> Restaurant { get; set; }
 
         public DbSet<RestaurantDiet> RestaurantDiet { get; set; }
 

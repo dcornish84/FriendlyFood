@@ -198,7 +198,7 @@ namespace FriendlyFood.Migrations
 
                     b.HasIndex("RestaurantId");
 
-                    b.ToTable("FavoritRestaurant");
+                    b.ToTable("FavoriteRestaurant");
 
                     b.HasData(
                         new
@@ -369,7 +369,7 @@ namespace FriendlyFood.Migrations
 
                     b.HasIndex("MealId");
 
-                    b.ToTable("FavoriteRestaurant");
+                    b.ToTable("Restaurant");
 
                     b.HasData(
                         new
@@ -521,7 +521,8 @@ namespace FriendlyFood.Migrations
 
                     b.HasIndex("DietTypeId");
 
-                    b.HasIndex("RestaurantId");
+                    b.HasIndex("RestaurantId")
+                        .IsUnique();
 
                     b.ToTable("RestaurantDiet");
 
@@ -773,13 +774,13 @@ namespace FriendlyFood.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b747371a-af46-4c8b-93ba-219406d8772e",
+                            ConcurrencyStamp = "4299b0d9-c30a-49db-942b-2d051144f443",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMaaZMIzvjLNJsNYgPPOhuTXiCveWv+38Ocd3fuo8trILV/THIN076pkSbrXy1QEjg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBOxztx4ubfrKXXk2NQYuRvnfE+pS6aBx/STWBi2IprE7qq0d3kVSOZBkY5qTRSqdA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -846,7 +847,7 @@ namespace FriendlyFood.Migrations
                         .IsRequired();
 
                     b.HasOne("FriendlyFood.Models.Meal", "Meal")
-                        .WithMany()
+                        .WithMany("MealDiets")
                         .HasForeignKey("MealId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -885,8 +886,8 @@ namespace FriendlyFood.Migrations
                         .IsRequired();
 
                     b.HasOne("FriendlyFood.Models.Restaurant", "Restaurant")
-                        .WithMany()
-                        .HasForeignKey("RestaurantId")
+                        .WithOne("RestaurantDiet")
+                        .HasForeignKey("FriendlyFood.Models.RestaurantDiet", "RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

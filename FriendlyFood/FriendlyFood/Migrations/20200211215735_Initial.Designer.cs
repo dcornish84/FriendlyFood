@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FriendlyFood.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200203202938_Initial")]
+    [Migration("20200211215735_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -162,6 +162,8 @@ namespace FriendlyFood.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
+                    b.HasIndex("MealId");
+
                     b.ToTable("FavoriteMeal");
 
                     b.HasData(
@@ -196,7 +198,9 @@ namespace FriendlyFood.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("FavoritRestaurant");
+                    b.HasIndex("RestaurantId");
+
+                    b.ToTable("FavoriteRestaurant");
 
                     b.HasData(
                         new
@@ -235,6 +239,8 @@ namespace FriendlyFood.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("RestaurantId");
 
                     b.ToTable("Meal");
 
@@ -287,6 +293,10 @@ namespace FriendlyFood.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DietTypeId");
+
+                    b.HasIndex("MealId");
 
                     b.ToTable("MealDiet");
 
@@ -344,6 +354,9 @@ namespace FriendlyFood.Migrations
                     b.Property<int>("CuisineId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("MealId")
+                        .HasColumnType("int");
+
                     b.Property<string>("RestaurantName")
                         .HasColumnType("nvarchar(max)");
 
@@ -355,6 +368,8 @@ namespace FriendlyFood.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CuisineId");
+
+                    b.HasIndex("MealId");
 
                     b.ToTable("Restaurant");
 
@@ -505,6 +520,11 @@ namespace FriendlyFood.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DietTypeId");
+
+                    b.HasIndex("RestaurantId")
+                        .IsUnique();
 
                     b.ToTable("RestaurantDiet");
 
@@ -756,13 +776,13 @@ namespace FriendlyFood.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d5142b3e-5a2a-4b63-97c6-f9431e891325",
+                            ConcurrencyStamp = "4299b0d9-c30a-49db-942b-2d051144f443",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENEnB2MMkmcdCVN0b4rsVYXXMj1e2npsjNPxBeJ3vyXgfX31W8ucALvmPhao7O5Yew==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBOxztx4ubfrKXXk2NQYuRvnfE+pS6aBx/STWBi2IprE7qq0d3kVSOZBkY5qTRSqdA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -786,6 +806,12 @@ namespace FriendlyFood.Migrations
                     b.HasOne("FriendlyFood.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("FriendlyFood.Models.Meal", "Meal")
+                        .WithMany()
+                        .HasForeignKey("MealId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FriendlyFood.Models.FavoriteRestaurant", b =>
@@ -793,6 +819,12 @@ namespace FriendlyFood.Migrations
                     b.HasOne("FriendlyFood.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("FriendlyFood.Models.Restaurant", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FriendlyFood.Models.Meal", b =>
@@ -800,6 +832,27 @@ namespace FriendlyFood.Migrations
                     b.HasOne("FriendlyFood.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("FriendlyFood.Models.Restaurant", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FriendlyFood.Models.MealDiet", b =>
+                {
+                    b.HasOne("FriendlyFood.Models.DietType", "DietType")
+                        .WithMany()
+                        .HasForeignKey("DietTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FriendlyFood.Models.Meal", "Meal")
+                        .WithMany("MealDiets")
+                        .HasForeignKey("MealId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FriendlyFood.Models.MealImage", b =>
@@ -818,6 +871,25 @@ namespace FriendlyFood.Migrations
                     b.HasOne("FriendlyFood.Models.Cuisine", "Cuisine")
                         .WithMany()
                         .HasForeignKey("CuisineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FriendlyFood.Models.Meal", null)
+                        .WithMany("Restaurants")
+                        .HasForeignKey("MealId");
+                });
+
+            modelBuilder.Entity("FriendlyFood.Models.RestaurantDiet", b =>
+                {
+                    b.HasOne("FriendlyFood.Models.DietType", "DietType")
+                        .WithMany()
+                        .HasForeignKey("DietTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FriendlyFood.Models.Restaurant", "Restaurant")
+                        .WithOne("RestaurantDiet")
+                        .HasForeignKey("FriendlyFood.Models.RestaurantDiet", "RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
