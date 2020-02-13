@@ -4,43 +4,37 @@
     ViewData["Title"] = "Details";
 }
 
+
 <h1>Details</h1>
 
-<div>
-    <h4>Meal</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MealName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MealName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Restaurant)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Restaurant.RestaurantName)
-        </dd>
-        <dt class="col-sm-2">
-            Diet
-        </dt>
-        <dd class="col-sm-10">
-            @foreach (var meal in Model.MealDiets)
-            {
-                <li>@Html.DisplayFor(modelItem => meal.DietType.DietName) </li>
-            }
-        </dd>
+<div class="container-fluid">
+    <div class="row justify-content-between">
+       
 
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+            <div class="card border-danger mb-3" style="width: 15rem; ">
+                <h3 class="card-header card-header-footer"><strong>@Html.DisplayFor(model => model.MealName)</strong></h3>
+
+                <div class="card-body">
+                    <h5 class="card-title"><strong>  @Html.DisplayFor(model => model.Restaurant.RestaurantName)</strong></h5>
+                    <p class="card-title">  @Html.DisplayFor(model => model.Description)</p>
+                    <h5 class="card-title">
+                        @foreach (var meal in Model.MealDiets)
+                        {
+                            <p class="text-success"><strong>@Html.DisplayFor(modelItem => meal.DietType.DietName)</strong> </p>
+                        }
+                    </h5>
+
+                    <div class="bottom-buttons">
+                        
+                        <div class="flex-row align-baseline">
+                            <a asp-action="Edit" class="badge alert-warning" asp-route-id="@Model.Id">Edit</a> |
+                           
+                            <a asp-action="Index" class="badge alert-danger">Back To List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        
+    </div>
 </div>
