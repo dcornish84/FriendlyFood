@@ -1,4 +1,4 @@
-﻿@model FriendlyFood.Models.Restaurant
+﻿@*@model FriendlyFood.Models.Restaurant
 
 @{
     ViewData["Title"] = "Details";
@@ -55,4 +55,47 @@
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
+</div>*@
+
+
+@model FriendlyFood.Models.Restaurant
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<h1>Details</h1>
+
+<div class="container-fluid">
+    <div class="row justify-content-between">
+
+
+        <div class="card border-danger mb-3" style="width: 15rem; ">
+            <h3 class="card-header card-header-footer"><strong>@Html.DisplayFor(model => model.RestaurantName)</strong></h3>
+
+            <div class="card-body">
+                <h5 class="card-title"><strong>@Html.DisplayFor(model => model.Cuisine.CuisineName)</strong></h5>
+                <h5 class="card-title"> @Html.DisplayFor(model => model.Address)</h5>
+                <h5 class="card-title"> @Html.DisplayFor(model => model.City)</h5>
+                <h5 class="card-title">  @Html.DisplayFor(model => model.ZipCode)</h5>
+                @foreach (var meal in Model.RestaurantDiets)
+                {
+                    <p class="text-success"><strong>@Html.DisplayFor(modelItem => meal.DietType.DietName)</strong> </p>
+                }
+                </h5>
+
+                <div class="bottom-buttons">
+
+                    <div class="flex-row align-baseline">
+                        <a asp-action="Edit" class="badge alert-warning" asp-route-id="@Model.Id">Edit</a> |
+
+                        <a asp-action="Index" class="badge alert-danger">Back To List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 </div>

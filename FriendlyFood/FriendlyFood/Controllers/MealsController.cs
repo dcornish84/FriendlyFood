@@ -162,6 +162,8 @@ namespace FriendlyFood.Controllers
             var meal = await _context.Meal
                 .Include(m => m.ApplicationUser)
                 .Include(r => r.Restaurant)
+                .Include(r => r.MealDiets)
+                    .ThenInclude(rd => rd.DietType)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (meal == null)
             {
