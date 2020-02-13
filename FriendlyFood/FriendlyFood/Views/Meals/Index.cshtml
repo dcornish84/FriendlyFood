@@ -4,65 +4,57 @@
     ViewData["Title"] = "Index";
 }
 
-    <div>
-        <form asp-controller="Meals" asp-action="Index">
-            <div class="input-group">
-                <input type="text" name="searchString" class="form-control" placeholder="Search by Meal or Restaurant" />
-                <span class="input-group-btn">
-                    <input type="submit" value="Search" class="btn btn-primary" />
-                </span>
+<h1>Meals</h1>
+<div class="search-bar-pad">
+    <form class="form-inline my-2 my-xl-0" asp-controller="Meals" asp-action="Index">
+        <div class="input-group">
+            <input class="search-bar-box" type="text" name="searchString" placeholder="Search by Meal or Restaurant" />
+            <span class="input-group-btn">
+                <input type="submit" value="Search" class="btn btn-danger my-3 my-sm-0" />
+            </span>
+        </div>
+    </form>
+</div>
+
+
+
+<div class="create-button">
+
+    <a asp-action="Create" class="btn alert-danger">Create New Meal</a>
+
+</div>
+<div class="container-fluid">
+    <div class="row justify-content-between">
+        @foreach (var item in Model)
+        {
+
+            <div class="card border-danger mb-3" style="width: 15rem; ">
+                <h3 class="card-header card-header-footer"><strong>@Html.DisplayFor(modelItem => item.MealName)</strong></h3>
+
+                <div class="card-body">
+                    <h5 class="card-title"><strong> @Html.DisplayFor(modelItem => item.Restaurant.RestaurantName)</strong></h5>
+                    <p class="card-title"> @Html.DisplayFor(modelItem => item.Description)</p>
+                    
+
+                    <div class="bottom-buttons">
+                        <form asp-controller="DietTypes" asp-action="GetMealDiet">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <input type="submit" class="btn-block text-light alert-primary" id="btn-@item.Id" value="Add Diet Tag" />
+                        </form>
+
+                        <form asp-controller="Favorites" asp-action="AddMealToFavorites">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <input type="submit" class="btn-block text-light alert-danger" id="btn-@item.Id" value="Add to Favorites" />
+                        </form>
+                        <div class="flex-row align-baseline">
+                            <a asp-action="Edit" class="badge alert-warning" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" class="badge alert-info" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" class="badge alert-secondary" asp-route-id="@item.Id">Delete</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </form>
+
+        }
     </div>
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MealName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Restaurant)
-            </th>
-          
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MealName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Restaurant.RestaurantName)
-            </td>
-           
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                <form asp-controller="Favorites" asp-action="AddMealToFavorites">
-                    <input type="hidden" name="id" value="@item.Id" />
-                    <input type="submit" class="btn alert-primary" id="btn-@item.Id" value="Add to Favorites" />
-                </form>
-                <form asp-controller="DietTypes" asp-action="GetMealDiet">
-                    <input type="hidden" name="id" value="@item.Id" />
-                    <input type="submit" class="btn alert-primary" id="btn-@item.Id" value="Dietary Tag" />
-                </form>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+</div>
