@@ -5,115 +5,58 @@
 }
 
 
+    <h1>Restaurants</h1>
+    <div class="search-bar-pad">
+        <form class="form-inline my-2 my-xl-0" asp-controller="Restaurants" asp-action="Index">
+            <div class="input-group">
+                <input class="search-bar-box" type="text" name="searchString"  placeholder="Search by Restaurant, Address, Zipcode, or Cuisine" />
+                <span class="input-group-btn">
+                    <input type="submit" value="Search" class="btn btn-danger my-3 my-sm-0" />
+                </span>
+            </div>
+        </form>
+    </div>
+        
 
-<div>
-    <form asp-controller="Restaurants" asp-action="Index">
-        <div class="input-group">
-            <input type="text" name="searchString" class="form-control" placeholder="Search by Restaurant, Address, Zipcode, or Cuisine" />
-            <span class="input-group-btn">
-                <input type="submit" value="Search" class="btn btn-primary" />
-            </span>
-        </div>
-    </form>
-</div>
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.RestaurantName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ZipCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cuisine)
-            </th>
-
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+    <div class="create-button">
+        
+     <a asp-action="Create" class="btn alert-danger">Create New Restaurant</a>
+        
+    </div>
+<div class="container-fluid">
+    <div class="row justify-content-between" >
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RestaurantName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ZipCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.City)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cuisine.CuisineName)
-                </td>
+            
+                    <div class="card border-danger mb-3" style="width: 15rem; ">
+                        <h3 class="card-header card-header-footer"><strong>@Html.DisplayFor(modelItem => item.RestaurantName)</strong></h3>
 
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    <form asp-controller="Favorites" asp-action="AddRestaurantToFavorites">
-                        <input type="hidden" name="id" value="@item.Id" />
-                        <input type="submit" class="btn alert-primary" id="btn-@item.Id" value="Add to Favorites" />
-                    </form>
-                    <form asp-controller="DietTypes" asp-action="GetDiet">
-                        <input type="hidden" name="id" value="@item.Id" />
-                        <input type="submit" class="btn alert-primary" id="btn-@item.Id" value="Dietary Tag" />
-                    </form>
-                </td>
+                        <div class="card-body">
+                            <h5 class="card-title"><strong> @Html.DisplayFor(modelItem => item.Cuisine.CuisineName)</strong></h5>
+                            <h5 class="card-title"> @Html.DisplayFor(modelItem => item.Address)</h5>
+                            <h5 class="card-title"> @Html.DisplayFor(modelItem => item.City)</h5>
+                            <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ZipCode)</h5>
 
-            </tr>
+                            <div class="bottom-buttons">
+                                <form asp-controller="DietTypes" asp-action="GetDiet">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <input type="submit" class="btn-block text-light alert-primary" id="btn-@item.Id" value="Add Diet Tag" />
+                                </form>
+
+                                <form asp-controller="Favorites" asp-action="AddRestaurantToFavorites">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <input type="submit" class="btn-block text-light alert-danger" id="btn-@item.Id" value="Add to Favorites" />
+                                </form>
+                                <div class="flex-row align-baseline">
+                                    <a asp-action="Edit" class="badge alert-warning" asp-route-id="@item.Id">Edit</a> |
+                                    <a asp-action="Details" class="badge alert-info" asp-route-id="@item.Id">Details</a> |
+                                    <a asp-action="Delete" class="badge alert-secondary" asp-route-id="@item.Id">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+              
         }
-    </tbody>
-</table>
-<div class="cardRest">
-@foreach (var item in Model)
-{
-<div class="card-columns">
-    <div style="">
-        <div class="card border-danger mb-3" style="max-width: 20rem;">
-            <h3 class="card-header card-header-footer"><strong>@Html.DisplayFor(modelItem => item.RestaurantName)</strong></h3>
-
-            <div class="card-body">
-                <h5 class="card-title"><strong> @Html.DisplayFor(modelItem => item.Cuisine.CuisineName)</strong></h5>
-                <h5 class="card-title"> @Html.DisplayFor(modelItem => item.Address)</h5>
-                <h5 class="card-title"> @Html.DisplayFor(modelItem => item.City)</h5>
-                <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ZipCode)</h5>
-
-
-                <form asp-controller="DietTypes" asp-action="GetDiet">
-                    <input type="hidden" name="id" value="@item.Id" />
-                    <input type="submit" class="btn-block text-light alert-primary" id="btn-@item.Id" value="Add Diet Tag" />
-                </form>
-
-                <form asp-controller="Favorites" asp-action="AddRestaurantToFavorites">
-                    <input type="hidden" name="id" value="@item.Id" />
-                    <input type="submit" class="btn-block text-light alert-danger" id="btn-@item.Id" value="Add to Favorites" />
-                </form>
-                <div class="flex-row">
-                    <a asp-action="Edit" class="badge alert-warning" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" class="badge alert-info" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" class="badge alert-secondary" asp-route-id="@item.Id">Delete</a>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
-        }
-    </div>
