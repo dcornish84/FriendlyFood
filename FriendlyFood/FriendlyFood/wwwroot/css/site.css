@@ -104,3 +104,8 @@ body {
 .search-bar-box {
     width: 370px;
 }
+
+.create-button-diet {
+    position: absolute;
+    top: 250px;
+}
