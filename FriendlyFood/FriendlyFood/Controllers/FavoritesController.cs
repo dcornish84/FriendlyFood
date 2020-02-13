@@ -14,7 +14,7 @@ using FriendlyFood.Models.ViewModels;
 namespace FriendlyFood.Controllers
 {
 
-
+    
     public class FavoritesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,8 +26,8 @@ namespace FriendlyFood.Controllers
             _userManager = userManager;
         }
 
-        
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var favoritesViewModel = new FavoritesViewModel();
