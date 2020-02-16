@@ -110,7 +110,7 @@ namespace FriendlyFood.Controllers
                 return NotFound();
             }
            
-            ViewData["RestaurantId"] = new SelectList(_context.FavoriteRestaurant, "Id", "RestaurantName", meal.RestaurantId);
+            ViewData["RestaurantId"] = new SelectList(_context.Restaurant, "Id", "RestaurantName", meal.RestaurantId);
             return View(meal);
         }
 
@@ -147,7 +147,7 @@ namespace FriendlyFood.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", meal.ApplicationUserId);
-            ViewData["RestaurantId"] = new SelectList(_context.FavoriteRestaurant, "Id", "Id", meal.RestaurantId);
+            ViewData["RestaurantId"] = new SelectList(_context.Restaurant, "Id", "Id", meal.RestaurantId);
             return View(meal);
         }
 
@@ -162,6 +162,8 @@ namespace FriendlyFood.Controllers
             var meal = await _context.Meal
                 .Include(m => m.ApplicationUser)
                 .Include(r => r.Restaurant)
+                .Include(r => r.MealDiets)
+                    .ThenInclude(rd => rd.DietType)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (meal == null)
             {

@@ -8,46 +8,43 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FavoriteMeal)
+        <tr class="table-success">
+            <th scope="row">
+                Favorite Meal
             </th>
-
-
-
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.FavoriteMeal)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Meal.MealName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Meal.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Meal.Restaurant.RestaurantName)
-            </td>
-            <td>
+            <tr>
+                <td>
+                    <strong> @Html.DisplayFor(modelItem => item.Meal.MealName)</strong>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Meal.Description)
+                </td>
+                <td>
+                    <strong>   @Html.DisplayFor(modelItem => item.Meal.Restaurant.RestaurantName) </strong>
+</td>
+                <td>
 
-               
-                <a asp-action="DeleteMeal" asp-route-id="@item.Id">Delete</a>
-        
-        
-            </td>
 
-        </tr>
+                    <a asp-action="Delete" class="badge alert-danger" asp-route-id="@item.Id">Delete</a>
+
+
+                </td>
+
+            </tr>
         }
     </tbody>
 </table>
 
 <table class="table">
     <thead>
-        <tr>
-            <th>
+        <tr class="table-success">
+            <th scope="row">
                 @Html.DisplayNameFor(model => model.FavoriteRestaurant)
             </th>
 
@@ -59,23 +56,23 @@
     <tbody>
         @foreach (var item in Model.FavoriteRestaurant)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Restaurant.RestaurantName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Restaurant.Cuisine.CuisineName)
-            </td>
-            <td>
-
-                
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-
-               
-            </td>
+            <tr>
+                <td>
+                    <strong>@Html.DisplayFor(modelItem => item.Restaurant.RestaurantName)</strong>
+                </td>
+                <td>
+                    <strong>  @Html.DisplayFor(modelItem => item.Restaurant.Cuisine.CuisineName)</strong>
+                </td>
+                <td>
 
 
-        </tr>
+                    <a asp-action="Delete" class="badge alert-danger" asp-route-id="@item.Id">Delete</a>
+
+
+                </td>
+
+
+            </tr>
         }
     </tbody>
 </table>
