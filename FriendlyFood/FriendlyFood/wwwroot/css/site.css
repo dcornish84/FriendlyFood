@@ -111,5 +111,11 @@ body {
 
 .create-button-diet {
     position: absolute;
-    top: 400px;
+    top: 120px;
+    padding-bottom: 2em;
+
+}
+
+.diet-table {
+    padding-top: 4em;
 }
